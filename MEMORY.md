@@ -17,3 +17,4 @@
 - To modify *when/how* a task runs: edit the cron job in `jobs.json`
 - To create a new task: write a new `.js` script in `workspace/scripts/` AND create a cron job that runs it
 - Scripts output their message to stdout; cron relays it. Complex logic belongs in the script, not the payload.message
+- **Git remotes**: All repos push to `https://github.com/shupac800/openclaw-scripts.git` (renamed from openclaw-cron-scripts)
