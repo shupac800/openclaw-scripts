@@ -1,0 +1,3567 @@
+{
+  "sent_triads": [
+    "E Minor (root fret 9, G string)",
+    "F# Minor (root fret 9, A string)",
+    "Bb Major (root fret 8, D string)",
+    "C# Major (root fret 4, A string)",
+    "Eb Augmented (root fret 1, D string)",
+    "Ab Diminished (root fret 1, G string)",
+    "G Augmented (root fret 8, B string)",
+    "Bb Minor (root fret 6, E string)",
+    "G Diminished (root fret 8, B string)",
+    "D Diminished (root fret 5, A string)",
+    "A Augmented (root fret 5, E string)",
+    "G Major (root fret 3, E string)",
+    "B Major (root fret 7, E string)",
+    "Ab Minor (root fret 1, G string)",
+    "B Major (root fret 4, G string)",
+    "Eb Minor (root fret 8, G string)",
+    "Bb Augmented (root fret 11, B string)",
+    "Eb Augmented (root fret 6, A string)",
+    "B Minor (root fret 9, D string)",
+    "Bb Minor (root fret 3, G string)",
+    "F# Diminished (root fret 11, G string)",
+    "Bb Diminished (root fret 3, G string)",
+    "F# Major (root fret 9, A string)",
+    "B Diminished (root fret 9, D string)",
+    "A Diminished (root fret 2, G string)"
+  ],
+  "available_triads": [
+    {
+      "name": "C Major (root fret 8, E string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "5": "G",
+        "R": "C"
+      },
+      "strings": {
+        "E": 8,
+        "A": 7,
+        "D": 5,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Major (root fret 3, A string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "5": "G",
+        "R": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": 3,
+        "D": 2,
+        "G": 0,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Major (root fret 10, D string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "5": "G",
+        "R": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 10,
+        "G": 9,
+        "B": 8,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Major (root fret 5, G string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "5": "G",
+        "R": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 5,
+        "e": 3
+      }
+    },
+    {
+      "name": "C Minor (root fret 8, E string)",
+      "root": "C",
+      "chord_tones": {
+        "5": "G",
+        "R": "C",
+        "m3": "Eb"
+      },
+      "strings": {
+        "E": 8,
+        "A": 6,
+        "D": 5,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Minor (root fret 3, A string)",
+      "root": "C",
+      "chord_tones": {
+        "5": "G",
+        "R": "C",
+        "m3": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 3,
+        "D": 1,
+        "G": 0,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Minor (root fret 10, D string)",
+      "root": "C",
+      "chord_tones": {
+        "5": "G",
+        "R": "C",
+        "m3": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 10,
+        "G": 8,
+        "B": 8,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Minor (root fret 5, G string)",
+      "root": "C",
+      "chord_tones": {
+        "5": "G",
+        "R": "C",
+        "m3": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 4,
+        "e": 3
+      }
+    },
+    {
+      "name": "C Diminished (root fret 8, E string)",
+      "root": "C",
+      "chord_tones": {
+        "R": "C",
+        "m3": "Eb",
+        "5-": "F#"
+      },
+      "strings": {
+        "E": 8,
+        "A": 6,
+        "D": 4,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Diminished (root fret 10, D string)",
+      "root": "C",
+      "chord_tones": {
+        "R": "C",
+        "m3": "Eb",
+        "5-": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 10,
+        "G": 8,
+        "B": 7,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Diminished (root fret 5, G string)",
+      "root": "C",
+      "chord_tones": {
+        "R": "C",
+        "m3": "Eb",
+        "5-": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 4,
+        "e": 2
+      }
+    },
+    {
+      "name": "C Augmented (root fret 8, E string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "R": "C",
+        "5+": "Ab"
+      },
+      "strings": {
+        "E": 8,
+        "A": 7,
+        "D": 6,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Augmented (root fret 3, A string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "R": "C",
+        "5+": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": 3,
+        "D": 2,
+        "G": 1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Augmented (root fret 10, D string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "R": "C",
+        "5+": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 10,
+        "G": 9,
+        "B": 9,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Augmented (root fret 5, G string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "R": "C",
+        "5+": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 5,
+        "e": 4
+      }
+    },
+    {
+      "name": "C# Major (root fret 9, E string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "5": "Ab",
+        "R": "C#"
+      },
+      "strings": {
+        "E": 9,
+        "A": 8,
+        "D": 6,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Major (root fret 4, A string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "5": "Ab",
+        "R": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": 4,
+        "D": 3,
+        "G": 1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Major (root fret 11, D string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "5": "Ab",
+        "R": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 11,
+        "G": 10,
+        "B": 9,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Major (root fret 6, G string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "5": "Ab",
+        "R": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 6,
+        "e": 4
+      }
+    },
+    {
+      "name": "C# Minor (root fret 9, E string)",
+      "root": "C#",
+      "chord_tones": {
+        "5": "Ab",
+        "R": "C#",
+        "m3": "E"
+      },
+      "strings": {
+        "E": 9,
+        "A": 7,
+        "D": 6,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Minor (root fret 4, A string)",
+      "root": "C#",
+      "chord_tones": {
+        "5": "Ab",
+        "R": "C#",
+        "m3": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": 4,
+        "D": 2,
+        "G": 1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Minor (root fret 11, D string)",
+      "root": "C#",
+      "chord_tones": {
+        "5": "Ab",
+        "R": "C#",
+        "m3": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 11,
+        "G": 9,
+        "B": 9,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Minor (root fret 6, G string)",
+      "root": "C#",
+      "chord_tones": {
+        "5": "Ab",
+        "R": "C#",
+        "m3": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 5,
+        "e": 4
+      }
+    },
+    {
+      "name": "C# Diminished (root fret 9, E string)",
+      "root": "C#",
+      "chord_tones": {
+        "R": "C#",
+        "m3": "E",
+        "5-": "G"
+      },
+      "strings": {
+        "E": 9,
+        "A": 7,
+        "D": 5,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Diminished (root fret 4, A string)",
+      "root": "C#",
+      "chord_tones": {
+        "R": "C#",
+        "m3": "E",
+        "5-": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": 4,
+        "D": 2,
+        "G": 0,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Diminished (root fret 11, D string)",
+      "root": "C#",
+      "chord_tones": {
+        "R": "C#",
+        "m3": "E",
+        "5-": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 11,
+        "G": 9,
+        "B": 8,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Diminished (root fret 6, G string)",
+      "root": "C#",
+      "chord_tones": {
+        "R": "C#",
+        "m3": "E",
+        "5-": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 5,
+        "e": 3
+      }
+    },
+    {
+      "name": "C# Augmented (root fret 9, E string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "R": "C#",
+        "5+": "A"
+      },
+      "strings": {
+        "E": 9,
+        "A": 8,
+        "D": 7,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Augmented (root fret 4, A string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "R": "C#",
+        "5+": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": 4,
+        "D": 3,
+        "G": 2,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Augmented (root fret 11, D string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "R": "C#",
+        "5+": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 11,
+        "G": 10,
+        "B": 10,
+        "e": -1
+      }
+    },
+    {
+      "name": "C# Augmented (root fret 6, G string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "R": "C#",
+        "5+": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 6,
+        "e": 5
+      }
+    },
+    {
+      "name": "D Major (root fret 10, E string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "5": "A",
+        "R": "D"
+      },
+      "strings": {
+        "E": 10,
+        "A": 9,
+        "D": 7,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Major (root fret 5, A string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "5": "A",
+        "R": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": 5,
+        "D": 4,
+        "G": 2,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Major (root fret 7, G string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "5": "A",
+        "R": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 7,
+        "e": 5
+      }
+    },
+    {
+      "name": "D Minor (root fret 10, E string)",
+      "root": "D",
+      "chord_tones": {
+        "5": "A",
+        "R": "D",
+        "m3": "F"
+      },
+      "strings": {
+        "E": 10,
+        "A": 8,
+        "D": 7,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Minor (root fret 5, A string)",
+      "root": "D",
+      "chord_tones": {
+        "5": "A",
+        "R": "D",
+        "m3": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": 5,
+        "D": 3,
+        "G": 2,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Minor (root fret 7, G string)",
+      "root": "D",
+      "chord_tones": {
+        "5": "A",
+        "R": "D",
+        "m3": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 6,
+        "e": 5
+      }
+    },
+    {
+      "name": "D Diminished (root fret 10, E string)",
+      "root": "D",
+      "chord_tones": {
+        "R": "D",
+        "m3": "F",
+        "5-": "Ab"
+      },
+      "strings": {
+        "E": 10,
+        "A": 8,
+        "D": 6,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Diminished (root fret 5, A string)",
+      "root": "D",
+      "chord_tones": {
+        "R": "D",
+        "m3": "F",
+        "5-": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": 5,
+        "D": 3,
+        "G": 1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Diminished (root fret 7, G string)",
+      "root": "D",
+      "chord_tones": {
+        "R": "D",
+        "m3": "F",
+        "5-": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 6,
+        "e": 4
+      }
+    },
+    {
+      "name": "D Augmented (root fret 10, E string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "R": "D",
+        "5+": "Bb"
+      },
+      "strings": {
+        "E": 10,
+        "A": 9,
+        "D": 8,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Augmented (root fret 5, A string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "R": "D",
+        "5+": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 5,
+        "D": 4,
+        "G": 3,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "D Augmented (root fret 7, G string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "R": "D",
+        "5+": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 7,
+        "e": 6
+      }
+    },
+    {
+      "name": "Eb Major (root fret 11, E string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "5": "Bb",
+        "R": "Eb"
+      },
+      "strings": {
+        "E": 11,
+        "A": 10,
+        "D": 8,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Major (root fret 6, A string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "5": "Bb",
+        "R": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 6,
+        "D": 5,
+        "G": 3,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Major (root fret 8, G string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "5": "Bb",
+        "R": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 8,
+        "e": 6
+      }
+    },
+    {
+      "name": "Eb Minor (root fret 11, E string)",
+      "root": "Eb",
+      "chord_tones": {
+        "5": "Bb",
+        "R": "Eb",
+        "m3": "F#"
+      },
+      "strings": {
+        "E": 11,
+        "A": 9,
+        "D": 8,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Minor (root fret 6, A string)",
+      "root": "Eb",
+      "chord_tones": {
+        "5": "Bb",
+        "R": "Eb",
+        "m3": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": 6,
+        "D": 4,
+        "G": 3,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Minor (root fret 8, G string)",
+      "root": "Eb",
+      "chord_tones": {
+        "5": "Bb",
+        "R": "Eb",
+        "m3": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 7,
+        "e": 6
+      }
+    },
+    {
+      "name": "Eb Diminished (root fret 11, E string)",
+      "root": "Eb",
+      "chord_tones": {
+        "R": "Eb",
+        "m3": "F#",
+        "5-": "A"
+      },
+      "strings": {
+        "E": 11,
+        "A": 9,
+        "D": 7,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Diminished (root fret 6, A string)",
+      "root": "Eb",
+      "chord_tones": {
+        "R": "Eb",
+        "m3": "F#",
+        "5-": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": 6,
+        "D": 4,
+        "G": 2,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Diminished (root fret 8, G string)",
+      "root": "Eb",
+      "chord_tones": {
+        "R": "Eb",
+        "m3": "F#",
+        "5-": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 7,
+        "e": 5
+      }
+    },
+    {
+      "name": "Eb Augmented (root fret 11, E string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "R": "Eb",
+        "5+": "B"
+      },
+      "strings": {
+        "E": 11,
+        "A": 10,
+        "D": 9,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Augmented (root fret 6, A string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "R": "Eb",
+        "5+": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": 6,
+        "D": 5,
+        "G": 4,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Augmented (root fret 1, D string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "R": "Eb",
+        "5+": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 1,
+        "G": 0,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Augmented (root fret 8, G string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "R": "Eb",
+        "5+": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 8,
+        "e": 7
+      }
+    },
+    {
+      "name": "E Major (root fret 7, A string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "5": "B",
+        "R": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": 7,
+        "D": 6,
+        "G": 4,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Major (root fret 2, D string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "5": "B",
+        "R": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 2,
+        "G": 1,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Major (root fret 9, G string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "5": "B",
+        "R": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 9,
+        "e": 7
+      }
+    },
+    {
+      "name": "E Minor (root fret 7, A string)",
+      "root": "E",
+      "chord_tones": {
+        "5": "B",
+        "R": "E",
+        "m3": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": 7,
+        "D": 5,
+        "G": 4,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Minor (root fret 2, D string)",
+      "root": "E",
+      "chord_tones": {
+        "5": "B",
+        "R": "E",
+        "m3": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 2,
+        "G": 0,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Minor (root fret 9, G string)",
+      "root": "E",
+      "chord_tones": {
+        "5": "B",
+        "R": "E",
+        "m3": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 8,
+        "e": 7
+      }
+    },
+    {
+      "name": "E Diminished (root fret 7, A string)",
+      "root": "E",
+      "chord_tones": {
+        "R": "E",
+        "m3": "G",
+        "5-": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 7,
+        "D": 5,
+        "G": 3,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Diminished (root fret 9, G string)",
+      "root": "E",
+      "chord_tones": {
+        "R": "E",
+        "m3": "G",
+        "5-": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 8,
+        "e": 6
+      }
+    },
+    {
+      "name": "E Augmented (root fret 7, A string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "R": "E",
+        "5+": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": 7,
+        "D": 6,
+        "G": 5,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Augmented (root fret 2, D string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "R": "E",
+        "5+": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 2,
+        "G": 1,
+        "B": 1,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Augmented (root fret 9, G string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "R": "E",
+        "5+": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 9,
+        "e": 8
+      }
+    },
+    {
+      "name": "F Major (root fret 8, A string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "5": "C",
+        "R": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": 8,
+        "D": 7,
+        "G": 5,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Major (root fret 3, D string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "5": "C",
+        "R": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 3,
+        "G": 2,
+        "B": 1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Major (root fret 10, G string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "5": "C",
+        "R": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 10,
+        "B": 10,
+        "e": 8
+      }
+    },
+    {
+      "name": "F Minor (root fret 8, A string)",
+      "root": "F",
+      "chord_tones": {
+        "5": "C",
+        "R": "F",
+        "m3": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": 8,
+        "D": 6,
+        "G": 5,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Minor (root fret 3, D string)",
+      "root": "F",
+      "chord_tones": {
+        "5": "C",
+        "R": "F",
+        "m3": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 3,
+        "G": 1,
+        "B": 1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Minor (root fret 10, G string)",
+      "root": "F",
+      "chord_tones": {
+        "5": "C",
+        "R": "F",
+        "m3": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 10,
+        "B": 9,
+        "e": 8
+      }
+    },
+    {
+      "name": "F Diminished (root fret 8, A string)",
+      "root": "F",
+      "chord_tones": {
+        "R": "F",
+        "m3": "Ab",
+        "5-": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": 8,
+        "D": 6,
+        "G": 4,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Diminished (root fret 3, D string)",
+      "root": "F",
+      "chord_tones": {
+        "R": "F",
+        "m3": "Ab",
+        "5-": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 3,
+        "G": 1,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Diminished (root fret 10, G string)",
+      "root": "F",
+      "chord_tones": {
+        "R": "F",
+        "m3": "Ab",
+        "5-": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 10,
+        "B": 9,
+        "e": 7
+      }
+    },
+    {
+      "name": "F Augmented (root fret 8, A string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "R": "F",
+        "5+": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": 8,
+        "D": 7,
+        "G": 6,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Augmented (root fret 3, D string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "R": "F",
+        "5+": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 3,
+        "G": 2,
+        "B": 2,
+        "e": -1
+      }
+    },
+    {
+      "name": "F Augmented (root fret 10, G string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "R": "F",
+        "5+": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 10,
+        "B": 10,
+        "e": 9
+      }
+    },
+    {
+      "name": "F# Major (root fret 9, A string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "5": "C#",
+        "R": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": 9,
+        "D": 8,
+        "G": 6,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Major (root fret 4, D string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "5": "C#",
+        "R": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 4,
+        "G": 3,
+        "B": 2,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Major (root fret 11, G string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "5": "C#",
+        "R": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 11,
+        "B": 11,
+        "e": 9
+      }
+    },
+    {
+      "name": "F# Minor (root fret 9, A string)",
+      "root": "F#",
+      "chord_tones": {
+        "5": "C#",
+        "R": "F#",
+        "m3": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": 9,
+        "D": 7,
+        "G": 6,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Minor (root fret 4, D string)",
+      "root": "F#",
+      "chord_tones": {
+        "5": "C#",
+        "R": "F#",
+        "m3": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 4,
+        "G": 2,
+        "B": 2,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Minor (root fret 11, G string)",
+      "root": "F#",
+      "chord_tones": {
+        "5": "C#",
+        "R": "F#",
+        "m3": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 11,
+        "B": 10,
+        "e": 9
+      }
+    },
+    {
+      "name": "F# Diminished (root fret 9, A string)",
+      "root": "F#",
+      "chord_tones": {
+        "R": "F#",
+        "m3": "A",
+        "5-": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": 9,
+        "D": 7,
+        "G": 5,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Diminished (root fret 4, D string)",
+      "root": "F#",
+      "chord_tones": {
+        "R": "F#",
+        "m3": "A",
+        "5-": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 4,
+        "G": 2,
+        "B": 1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Diminished (root fret 11, G string)",
+      "root": "F#",
+      "chord_tones": {
+        "R": "F#",
+        "m3": "A",
+        "5-": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 11,
+        "B": 10,
+        "e": 8
+      }
+    },
+    {
+      "name": "F# Augmented (root fret 2, E string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "R": "F#",
+        "5+": "D"
+      },
+      "strings": {
+        "E": 2,
+        "A": 1,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Augmented (root fret 9, A string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "R": "F#",
+        "5+": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": 9,
+        "D": 8,
+        "G": 7,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Augmented (root fret 4, D string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "R": "F#",
+        "5+": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 4,
+        "G": 3,
+        "B": 3,
+        "e": -1
+      }
+    },
+    {
+      "name": "F# Augmented (root fret 11, G string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "R": "F#",
+        "5+": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 11,
+        "B": 11,
+        "e": 10
+      }
+    },
+    {
+      "name": "G Major (root fret 3, E string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "5": "D",
+        "R": "G"
+      },
+      "strings": {
+        "E": 3,
+        "A": 2,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Major (root fret 10, A string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "5": "D",
+        "R": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": 10,
+        "D": 9,
+        "G": 7,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Major (root fret 5, D string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "5": "D",
+        "R": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 5,
+        "G": 4,
+        "B": 3,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Minor (root fret 3, E string)",
+      "root": "G",
+      "chord_tones": {
+        "5": "D",
+        "R": "G",
+        "m3": "Bb"
+      },
+      "strings": {
+        "E": 3,
+        "A": 1,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Minor (root fret 10, A string)",
+      "root": "G",
+      "chord_tones": {
+        "5": "D",
+        "R": "G",
+        "m3": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 10,
+        "D": 8,
+        "G": 7,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Minor (root fret 5, D string)",
+      "root": "G",
+      "chord_tones": {
+        "5": "D",
+        "R": "G",
+        "m3": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 5,
+        "G": 3,
+        "B": 3,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Diminished (root fret 10, A string)",
+      "root": "G",
+      "chord_tones": {
+        "R": "G",
+        "m3": "Bb",
+        "5-": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": 10,
+        "D": 8,
+        "G": 6,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Diminished (root fret 5, D string)",
+      "root": "G",
+      "chord_tones": {
+        "R": "G",
+        "m3": "Bb",
+        "5-": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 5,
+        "G": 3,
+        "B": 2,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Augmented (root fret 3, E string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "R": "G",
+        "5+": "Eb"
+      },
+      "strings": {
+        "E": 3,
+        "A": 2,
+        "D": 1,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Augmented (root fret 10, A string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "R": "G",
+        "5+": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 10,
+        "D": 9,
+        "G": 8,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Augmented (root fret 5, D string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "R": "G",
+        "5+": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 5,
+        "G": 4,
+        "B": 4,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Major (root fret 4, E string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "5": "Eb",
+        "R": "Ab"
+      },
+      "strings": {
+        "E": 4,
+        "A": 3,
+        "D": 1,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Major (root fret 11, A string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "5": "Eb",
+        "R": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": 11,
+        "D": 10,
+        "G": 8,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Major (root fret 6, D string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "5": "Eb",
+        "R": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 6,
+        "G": 5,
+        "B": 4,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Minor (root fret 4, E string)",
+      "root": "Ab",
+      "chord_tones": {
+        "5": "Eb",
+        "R": "Ab",
+        "m3": "B"
+      },
+      "strings": {
+        "E": 4,
+        "A": 2,
+        "D": 1,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Minor (root fret 11, A string)",
+      "root": "Ab",
+      "chord_tones": {
+        "5": "Eb",
+        "R": "Ab",
+        "m3": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": 11,
+        "D": 9,
+        "G": 8,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Minor (root fret 6, D string)",
+      "root": "Ab",
+      "chord_tones": {
+        "5": "Eb",
+        "R": "Ab",
+        "m3": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 6,
+        "G": 4,
+        "B": 4,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Diminished (root fret 4, E string)",
+      "root": "Ab",
+      "chord_tones": {
+        "R": "Ab",
+        "m3": "B",
+        "5-": "D"
+      },
+      "strings": {
+        "E": 4,
+        "A": 2,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Diminished (root fret 11, A string)",
+      "root": "Ab",
+      "chord_tones": {
+        "R": "Ab",
+        "m3": "B",
+        "5-": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": 11,
+        "D": 9,
+        "G": 7,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Diminished (root fret 6, D string)",
+      "root": "Ab",
+      "chord_tones": {
+        "R": "Ab",
+        "m3": "B",
+        "5-": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 6,
+        "G": 4,
+        "B": 3,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Augmented (root fret 4, E string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "R": "Ab",
+        "5+": "E"
+      },
+      "strings": {
+        "E": 4,
+        "A": 3,
+        "D": 2,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Augmented (root fret 11, A string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "R": "Ab",
+        "5+": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": 11,
+        "D": 10,
+        "G": 9,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Augmented (root fret 6, D string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "R": "Ab",
+        "5+": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 6,
+        "G": 5,
+        "B": 5,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Augmented (root fret 1, G string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "R": "Ab",
+        "5+": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 1,
+        "B": 1,
+        "e": 0
+      }
+    },
+    {
+      "name": "A Major (root fret 5, E string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "5": "E",
+        "R": "A"
+      },
+      "strings": {
+        "E": 5,
+        "A": 4,
+        "D": 2,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Major (root fret 7, D string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "5": "E",
+        "R": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 7,
+        "G": 6,
+        "B": 5,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Major (root fret 2, G string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "5": "E",
+        "R": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 2,
+        "B": 2,
+        "e": 0
+      }
+    },
+    {
+      "name": "A Minor (root fret 5, E string)",
+      "root": "A",
+      "chord_tones": {
+        "5": "E",
+        "R": "A",
+        "m3": "C"
+      },
+      "strings": {
+        "E": 5,
+        "A": 3,
+        "D": 2,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Minor (root fret 7, D string)",
+      "root": "A",
+      "chord_tones": {
+        "5": "E",
+        "R": "A",
+        "m3": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 7,
+        "G": 5,
+        "B": 5,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Minor (root fret 2, G string)",
+      "root": "A",
+      "chord_tones": {
+        "5": "E",
+        "R": "A",
+        "m3": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 2,
+        "B": 1,
+        "e": 0
+      }
+    },
+    {
+      "name": "A Diminished (root fret 5, E string)",
+      "root": "A",
+      "chord_tones": {
+        "R": "A",
+        "m3": "C",
+        "5-": "Eb"
+      },
+      "strings": {
+        "E": 5,
+        "A": 3,
+        "D": 1,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Diminished (root fret 7, D string)",
+      "root": "A",
+      "chord_tones": {
+        "R": "A",
+        "m3": "C",
+        "5-": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 7,
+        "G": 5,
+        "B": 4,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Augmented (root fret 5, E string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "R": "A",
+        "5+": "F"
+      },
+      "strings": {
+        "E": 5,
+        "A": 4,
+        "D": 3,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Augmented (root fret 7, D string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "R": "A",
+        "5+": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 7,
+        "G": 6,
+        "B": 6,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Augmented (root fret 2, G string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "R": "A",
+        "5+": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 2,
+        "B": 2,
+        "e": 1
+      }
+    },
+    {
+      "name": "Bb Major (root fret 6, E string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "5": "F",
+        "R": "Bb"
+      },
+      "strings": {
+        "E": 6,
+        "A": 5,
+        "D": 3,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Major (root fret 8, D string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "5": "F",
+        "R": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 8,
+        "G": 7,
+        "B": 6,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Major (root fret 3, G string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "5": "F",
+        "R": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 3,
+        "e": 1
+      }
+    },
+    {
+      "name": "Bb Minor (root fret 6, E string)",
+      "root": "Bb",
+      "chord_tones": {
+        "5": "F",
+        "R": "Bb",
+        "m3": "C#"
+      },
+      "strings": {
+        "E": 6,
+        "A": 4,
+        "D": 3,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Minor (root fret 8, D string)",
+      "root": "Bb",
+      "chord_tones": {
+        "5": "F",
+        "R": "Bb",
+        "m3": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 8,
+        "G": 6,
+        "B": 6,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Minor (root fret 3, G string)",
+      "root": "Bb",
+      "chord_tones": {
+        "5": "F",
+        "R": "Bb",
+        "m3": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 2,
+        "e": 1
+      }
+    },
+    {
+      "name": "Bb Diminished (root fret 6, E string)",
+      "root": "Bb",
+      "chord_tones": {
+        "R": "Bb",
+        "m3": "C#",
+        "5-": "E"
+      },
+      "strings": {
+        "E": 6,
+        "A": 4,
+        "D": 2,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Diminished (root fret 8, D string)",
+      "root": "Bb",
+      "chord_tones": {
+        "R": "Bb",
+        "m3": "C#",
+        "5-": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 8,
+        "G": 6,
+        "B": 5,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Diminished (root fret 3, G string)",
+      "root": "Bb",
+      "chord_tones": {
+        "R": "Bb",
+        "m3": "C#",
+        "5-": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 2,
+        "e": 0
+      }
+    },
+    {
+      "name": "Bb Augmented (root fret 6, E string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "R": "Bb",
+        "5+": "F#"
+      },
+      "strings": {
+        "E": 6,
+        "A": 5,
+        "D": 4,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Augmented (root fret 8, D string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "R": "Bb",
+        "5+": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 8,
+        "G": 7,
+        "B": 7,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Augmented (root fret 3, G string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "R": "Bb",
+        "5+": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 3,
+        "e": 2
+      }
+    },
+    {
+      "name": "B Major (root fret 7, E string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "5": "F#",
+        "R": "B"
+      },
+      "strings": {
+        "E": 7,
+        "A": 6,
+        "D": 4,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Major (root fret 9, D string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "5": "F#",
+        "R": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 9,
+        "G": 8,
+        "B": 7,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Major (root fret 4, G string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "5": "F#",
+        "R": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 4,
+        "e": 2
+      }
+    },
+    {
+      "name": "B Minor (root fret 7, E string)",
+      "root": "B",
+      "chord_tones": {
+        "5": "F#",
+        "R": "B",
+        "m3": "D"
+      },
+      "strings": {
+        "E": 7,
+        "A": 5,
+        "D": 4,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Minor (root fret 9, D string)",
+      "root": "B",
+      "chord_tones": {
+        "5": "F#",
+        "R": "B",
+        "m3": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 9,
+        "G": 7,
+        "B": 7,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Minor (root fret 4, G string)",
+      "root": "B",
+      "chord_tones": {
+        "5": "F#",
+        "R": "B",
+        "m3": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 3,
+        "e": 2
+      }
+    },
+    {
+      "name": "B Diminished (root fret 7, E string)",
+      "root": "B",
+      "chord_tones": {
+        "R": "B",
+        "m3": "D",
+        "5-": "F"
+      },
+      "strings": {
+        "E": 7,
+        "A": 5,
+        "D": 3,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Diminished (root fret 9, D string)",
+      "root": "B",
+      "chord_tones": {
+        "R": "B",
+        "m3": "D",
+        "5-": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 9,
+        "G": 7,
+        "B": 6,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Diminished (root fret 4, G string)",
+      "root": "B",
+      "chord_tones": {
+        "R": "B",
+        "m3": "D",
+        "5-": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 3,
+        "e": 1
+      }
+    },
+    {
+      "name": "B Augmented (root fret 7, E string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "R": "B",
+        "5+": "G"
+      },
+      "strings": {
+        "E": 7,
+        "A": 6,
+        "D": 5,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Augmented (root fret 2, A string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "R": "B",
+        "5+": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": 2,
+        "D": 1,
+        "G": 0,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Augmented (root fret 9, D string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "R": "B",
+        "5+": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 9,
+        "G": 8,
+        "B": 8,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Augmented (root fret 4, G string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "R": "B",
+        "5+": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 4,
+        "e": 3
+      }
+    },
+    {
+      "name": "C Major (root fret 1, B string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "5": "G",
+        "R": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 0,
+        "B": 1,
+        "e": 0
+      }
+    },
+    {
+      "name": "C Diminished (root fret 3, A string)",
+      "root": "C",
+      "chord_tones": {
+        "R": "C",
+        "m3": "Eb",
+        "5-": "F#"
+      },
+      "strings": {
+        "E": 2,
+        "A": 3,
+        "D": 1,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "C Augmented (root fret 1, B string)",
+      "root": "C",
+      "chord_tones": {
+        "3": "E",
+        "R": "C",
+        "5+": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 1,
+        "B": 1,
+        "e": 0
+      }
+    },
+    {
+      "name": "C# Major (root fret 2, B string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "5": "Ab",
+        "R": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 1,
+        "B": 2,
+        "e": 1
+      }
+    },
+    {
+      "name": "C# Minor (root fret 2, B string)",
+      "root": "C#",
+      "chord_tones": {
+        "5": "Ab",
+        "R": "C#",
+        "m3": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 1,
+        "B": 2,
+        "e": 0
+      }
+    },
+    {
+      "name": "C# Diminished (root fret 2, B string)",
+      "root": "C#",
+      "chord_tones": {
+        "R": "C#",
+        "m3": "E",
+        "5-": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 0,
+        "B": 2,
+        "e": 0
+      }
+    },
+    {
+      "name": "C# Augmented (root fret 2, B string)",
+      "root": "C#",
+      "chord_tones": {
+        "3": "F",
+        "R": "C#",
+        "5+": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 2,
+        "B": 2,
+        "e": 1
+      }
+    },
+    {
+      "name": "D Major (root fret 3, B string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "5": "A",
+        "R": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 2,
+        "B": 3,
+        "e": 2
+      }
+    },
+    {
+      "name": "D Minor (root fret 3, B string)",
+      "root": "D",
+      "chord_tones": {
+        "5": "A",
+        "R": "D",
+        "m3": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 2,
+        "B": 3,
+        "e": 1
+      }
+    },
+    {
+      "name": "D Diminished (root fret 3, B string)",
+      "root": "D",
+      "chord_tones": {
+        "R": "D",
+        "m3": "F",
+        "5-": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 1,
+        "B": 3,
+        "e": 1
+      }
+    },
+    {
+      "name": "D Augmented (root fret 3, B string)",
+      "root": "D",
+      "chord_tones": {
+        "3": "F#",
+        "R": "D",
+        "5+": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 3,
+        "e": 2
+      }
+    },
+    {
+      "name": "Eb Major (root fret 1, D string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "5": "Bb",
+        "R": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 1,
+        "D": 1,
+        "G": 0,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Eb Major (root fret 4, B string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "5": "Bb",
+        "R": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 4,
+        "e": 3
+      }
+    },
+    {
+      "name": "Eb Minor (root fret 4, B string)",
+      "root": "Eb",
+      "chord_tones": {
+        "5": "Bb",
+        "R": "Eb",
+        "m3": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 4,
+        "e": 2
+      }
+    },
+    {
+      "name": "Eb Diminished (root fret 4, B string)",
+      "root": "Eb",
+      "chord_tones": {
+        "R": "Eb",
+        "m3": "F#",
+        "5-": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 2,
+        "B": 4,
+        "e": 2
+      }
+    },
+    {
+      "name": "Eb Augmented (root fret 4, B string)",
+      "root": "Eb",
+      "chord_tones": {
+        "3": "G",
+        "R": "Eb",
+        "5+": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 4,
+        "e": 3
+      }
+    },
+    {
+      "name": "E Major (root fret 5, B string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "5": "B",
+        "R": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 5,
+        "e": 4
+      }
+    },
+    {
+      "name": "E Minor (root fret 5, B string)",
+      "root": "E",
+      "chord_tones": {
+        "5": "B",
+        "R": "E",
+        "m3": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 5,
+        "e": 3
+      }
+    },
+    {
+      "name": "E Diminished (root fret 2, D string)",
+      "root": "E",
+      "chord_tones": {
+        "R": "E",
+        "m3": "G",
+        "5-": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": 1,
+        "D": 2,
+        "G": 0,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "E Diminished (root fret 5, B string)",
+      "root": "E",
+      "chord_tones": {
+        "R": "E",
+        "m3": "G",
+        "5-": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 3,
+        "B": 5,
+        "e": 3
+      }
+    },
+    {
+      "name": "E Augmented (root fret 5, B string)",
+      "root": "E",
+      "chord_tones": {
+        "3": "Ab",
+        "R": "E",
+        "5+": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 5,
+        "e": 4
+      }
+    },
+    {
+      "name": "F Major (root fret 6, B string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "5": "C",
+        "R": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 6,
+        "e": 5
+      }
+    },
+    {
+      "name": "F Minor (root fret 6, B string)",
+      "root": "F",
+      "chord_tones": {
+        "5": "C",
+        "R": "F",
+        "m3": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 6,
+        "e": 4
+      }
+    },
+    {
+      "name": "F Diminished (root fret 6, B string)",
+      "root": "F",
+      "chord_tones": {
+        "R": "F",
+        "m3": "Ab",
+        "5-": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 4,
+        "B": 6,
+        "e": 4
+      }
+    },
+    {
+      "name": "F Augmented (root fret 6, B string)",
+      "root": "F",
+      "chord_tones": {
+        "3": "A",
+        "R": "F",
+        "5+": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 6,
+        "e": 5
+      }
+    },
+    {
+      "name": "F# Major (root fret 7, B string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "5": "C#",
+        "R": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 7,
+        "e": 6
+      }
+    },
+    {
+      "name": "F# Minor (root fret 7, B string)",
+      "root": "F#",
+      "chord_tones": {
+        "5": "C#",
+        "R": "F#",
+        "m3": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 7,
+        "e": 5
+      }
+    },
+    {
+      "name": "F# Diminished (root fret 7, B string)",
+      "root": "F#",
+      "chord_tones": {
+        "R": "F#",
+        "m3": "A",
+        "5-": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 5,
+        "B": 7,
+        "e": 5
+      }
+    },
+    {
+      "name": "F# Augmented (root fret 7, B string)",
+      "root": "F#",
+      "chord_tones": {
+        "3": "Bb",
+        "R": "F#",
+        "5+": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 7,
+        "e": 6
+      }
+    },
+    {
+      "name": "G Major (root fret 0, G string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "5": "D",
+        "R": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 0,
+        "G": 0,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Major (root fret 8, B string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "5": "D",
+        "R": "G"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 8,
+        "e": 7
+      }
+    },
+    {
+      "name": "G Minor (root fret 8, B string)",
+      "root": "G",
+      "chord_tones": {
+        "5": "D",
+        "R": "G",
+        "m3": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 8,
+        "e": 6
+      }
+    },
+    {
+      "name": "G Diminished (root fret 8, B string)",
+      "root": "G",
+      "chord_tones": {
+        "R": "G",
+        "m3": "Bb",
+        "5-": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 6,
+        "B": 8,
+        "e": 6
+      }
+    },
+    {
+      "name": "G Augmented (root fret 0, G string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "R": "G",
+        "5+": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 1,
+        "G": 0,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "G Augmented (root fret 8, B string)",
+      "root": "G",
+      "chord_tones": {
+        "3": "B",
+        "R": "G",
+        "5+": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 8,
+        "e": 7
+      }
+    },
+    {
+      "name": "Ab Major (root fret 1, G string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "5": "Eb",
+        "R": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 1,
+        "G": 1,
+        "B": 1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Major (root fret 9, B string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "5": "Eb",
+        "R": "Ab"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 9,
+        "e": 8
+      }
+    },
+    {
+      "name": "Ab Minor (root fret 1, G string)",
+      "root": "Ab",
+      "chord_tones": {
+        "5": "Eb",
+        "R": "Ab",
+        "m3": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 1,
+        "G": 1,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Minor (root fret 9, B string)",
+      "root": "Ab",
+      "chord_tones": {
+        "5": "Eb",
+        "R": "Ab",
+        "m3": "B"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 9,
+        "e": 7
+      }
+    },
+    {
+      "name": "Ab Diminished (root fret 1, G string)",
+      "root": "Ab",
+      "chord_tones": {
+        "R": "Ab",
+        "m3": "B",
+        "5-": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 0,
+        "G": 1,
+        "B": 0,
+        "e": -1
+      }
+    },
+    {
+      "name": "Ab Diminished (root fret 9, B string)",
+      "root": "Ab",
+      "chord_tones": {
+        "R": "Ab",
+        "m3": "B",
+        "5-": "D"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 7,
+        "B": 9,
+        "e": 7
+      }
+    },
+    {
+      "name": "Ab Augmented (root fret 9, B string)",
+      "root": "Ab",
+      "chord_tones": {
+        "3": "C",
+        "R": "Ab",
+        "5+": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 9,
+        "e": 8
+      }
+    },
+    {
+      "name": "A Major (root fret 10, B string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "5": "E",
+        "R": "A"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 10,
+        "e": 9
+      }
+    },
+    {
+      "name": "A Minor (root fret 10, B string)",
+      "root": "A",
+      "chord_tones": {
+        "5": "E",
+        "R": "A",
+        "m3": "C"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 10,
+        "e": 8
+      }
+    },
+    {
+      "name": "A Diminished (root fret 2, G string)",
+      "root": "A",
+      "chord_tones": {
+        "R": "A",
+        "m3": "C",
+        "5-": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": 1,
+        "G": 2,
+        "B": 1,
+        "e": -1
+      }
+    },
+    {
+      "name": "A Diminished (root fret 10, B string)",
+      "root": "A",
+      "chord_tones": {
+        "R": "A",
+        "m3": "C",
+        "5-": "Eb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 8,
+        "B": 10,
+        "e": 8
+      }
+    },
+    {
+      "name": "A Augmented (root fret 10, B string)",
+      "root": "A",
+      "chord_tones": {
+        "3": "C#",
+        "R": "A",
+        "5+": "F"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 10,
+        "B": 10,
+        "e": 9
+      }
+    },
+    {
+      "name": "Bb Major (root fret 1, A string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "5": "F",
+        "R": "Bb"
+      },
+      "strings": {
+        "E": 1,
+        "A": 1,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Major (root fret 11, B string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "5": "F",
+        "R": "Bb"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 10,
+        "B": 11,
+        "e": 10
+      }
+    },
+    {
+      "name": "Bb Minor (root fret 11, B string)",
+      "root": "Bb",
+      "chord_tones": {
+        "5": "F",
+        "R": "Bb",
+        "m3": "C#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 10,
+        "B": 11,
+        "e": 9
+      }
+    },
+    {
+      "name": "Bb Diminished (root fret 11, B string)",
+      "root": "Bb",
+      "chord_tones": {
+        "R": "Bb",
+        "m3": "C#",
+        "5-": "E"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 9,
+        "B": 11,
+        "e": 9
+      }
+    },
+    {
+      "name": "Bb Augmented (root fret 1, A string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "R": "Bb",
+        "5+": "F#"
+      },
+      "strings": {
+        "E": 2,
+        "A": 1,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "Bb Augmented (root fret 11, B string)",
+      "root": "Bb",
+      "chord_tones": {
+        "3": "D",
+        "R": "Bb",
+        "5+": "F#"
+      },
+      "strings": {
+        "E": -1,
+        "A": -1,
+        "D": -1,
+        "G": 11,
+        "B": 11,
+        "e": 10
+      }
+    },
+    {
+      "name": "B Major (root fret 2, A string)",
+      "root": "B",
+      "chord_tones": {
+        "3": "Eb",
+        "5": "F#",
+        "R": "B"
+      },
+      "strings": {
+        "E": 2,
+        "A": 2,
+        "D": 1,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Minor (root fret 2, A string)",
+      "root": "B",
+      "chord_tones": {
+        "5": "F#",
+        "R": "B",
+        "m3": "D"
+      },
+      "strings": {
+        "E": 2,
+        "A": 2,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    },
+    {
+      "name": "B Diminished (root fret 2, A string)",
+      "root": "B",
+      "chord_tones": {
+        "R": "B",
+        "m3": "D",
+        "5-": "F"
+      },
+      "strings": {
+        "E": 1,
+        "A": 2,
+        "D": 0,
+        "G": -1,
+        "B": -1,
+        "e": -1
+      }
+    }
+  ]
+}
