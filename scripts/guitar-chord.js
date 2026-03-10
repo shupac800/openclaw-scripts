@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const fs = require('fs');
+const path = require('path');
 
-const triadsPath = '/home/ubuntu/.openclaw/workspace/sent_triads.json';
+const triadsPath = path.join(__dirname, '../sent_triads.json');
 const data = JSON.parse(fs.readFileSync(triadsPath, 'utf8'));
 
 const available = data.available_triads.filter(t => !data.sent_triads.includes(t.name));
