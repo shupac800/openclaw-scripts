@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const jobsPath = path.join(__dirname, '..', 'jobs.json');
+const jobsPath = '/home/ubuntu/.openclaw/cron/jobs.json';
 const data = JSON.parse(fs.readFileSync(jobsPath, 'utf8'));
 const job = data.jobs.find(j => j.id === 'a32c1e4e-2a74-444a-9736-cf795b052597');
 
