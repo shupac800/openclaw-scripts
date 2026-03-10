@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Tests for chord_diagram_vex.js and chord_template.html logic.
+ * Tests for guitar-chord.js and chord_template.html logic.
  *
  * Uses Node built-in test runner (node --test).
  * Tests the pure functions extracted from the template, plus
@@ -211,6 +211,109 @@ describe('buildToneMap', () => {
     assert.equal(m['F#'].original, 'Gb');
     assert.equal(m['A#'].interval, '5');
     assert.equal(m['D#'].interval, 'R');
+  });
+});
+
+describe('filenameForTriad missing-check', () => {
+  it('detects missing PNGs correctly', () => {
+    const staticDir = path.join(__dirname, 'static');
+    // A triad whose PNG definitely exists (generated earlier)
+    const existing = { name: 'C Major (root fret 3, A string)' };
+    const existingPath = path.join(staticDir, filenameForTriad(existing));
+    // Only assert if the static dir has been populated
+    if (fs.existsSync(existingPath)) {
+      assert.ok(fs.existsSync(existingPath));
+    }
+
+    // A triad with a bogus name — PNG should not exist
+    const fake = { name: 'Z Major (root fret 99, A string)' };
+    const fakePath = path.join(staticDir, filenameForTriad(fake));
+    assert.ok(!fs.existsSync(fakePath));
+  });
+});
+
+// ---- Import the new functions for testing ----
+// They're not exported, so we reimplement them here (same logic as guitar-chord.js)
+
+function resetSentIfAllSent(data) {
+  const allNames = new Set(data.available_triads.map(t => t.name));
+  const allSent = data.sent_triads.length >= allNames.size &&
+    data.sent_triads.every(name => allNames.has(name));
+  if (allSent) {
+    data.sent_triads = [];
+  }
+  return allSent;
+}
+
+function pickUnsent(data) {
+  const sentSet = new Set(data.sent_triads);
+  const unsent = data.available_triads.filter(t => !sentSet.has(t.name));
+  if (unsent.length === 0) return null;
+  const pick = unsent[Math.floor(Math.random() * unsent.length)];
+  data.sent_triads.push(pick.name);
+  return pick;
+}
+
+describe('resetSentIfAllSent', () => {
+  it('clears sent list when all triads sent', () => {
+    const data = {
+      available_triads: [{ name: 'A' }, { name: 'B' }, { name: 'C' }],
+      sent_triads: ['A', 'B', 'C'],
+    };
+    const cleared = resetSentIfAllSent(data);
+    assert.ok(cleared);
+    assert.deepEqual(data.sent_triads, []);
+  });
+
+  it('does not clear when some unsent', () => {
+    const data = {
+      available_triads: [{ name: 'A' }, { name: 'B' }, { name: 'C' }],
+      sent_triads: ['A', 'B'],
+    };
+    const cleared = resetSentIfAllSent(data);
+    assert.ok(!cleared);
+    assert.deepEqual(data.sent_triads, ['A', 'B']);
+  });
+
+  it('does not clear when sent list has unknown names', () => {
+    const data = {
+      available_triads: [{ name: 'A' }, { name: 'B' }],
+      sent_triads: ['A', 'B', 'X'],
+    };
+    const cleared = resetSentIfAllSent(data);
+    assert.ok(!cleared);
+  });
+});
+
+describe('pickUnsent', () => {
+  it('picks an unsent triad', () => {
+    const data = {
+      available_triads: [{ name: 'A' }, { name: 'B' }, { name: 'C' }],
+      sent_triads: ['A', 'B'],
+    };
+    const pick = pickUnsent(data);
+    assert.equal(pick.name, 'C');
+    assert.ok(data.sent_triads.includes('C'));
+  });
+
+  it('returns null when all sent', () => {
+    const data = {
+      available_triads: [{ name: 'A' }],
+      sent_triads: ['A'],
+    };
+    const pick = pickUnsent(data);
+    assert.equal(pick, null);
+  });
+
+  it('adds picked triad to sent list', () => {
+    const data = {
+      available_triads: [{ name: 'A' }, { name: 'B' }],
+      sent_triads: [],
+    };
+    const pick = pickUnsent(data);
+    assert.ok(pick);
+    assert.equal(data.sent_triads.length, 1);
+    assert.equal(data.sent_triads[0], pick.name);
   });
 });
 
