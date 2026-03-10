@@ -1,0 +1,9 @@
+{
+  "name": "openclaw-scripts",
+  "private": true,
+  "dependencies": {
+    "vexflow": "^4.2.5",
+    "sharp": "^0.33.0",
+    "playwright": "^1.40.0"
+  }
+}

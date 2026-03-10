@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+  #diagram { position: relative; }
+  /* VexFlow renders into this off-screen div */
+  #vexStaff { position: absolute; left: -9999px; top: -9999px; }
+  #output { display: block; }
+</style>
+<script src="https://unpkg.com/vexflow@4.2.5/build/cjs/vexflow.js"></script>
+</head>
+<body>
+<div id="diagram">
+  <div id="vexStaff"></div>
+  <canvas id="output"></canvas>
+</div>
+<script>
+// ---- constants ----
+const STRING_ORDER = ['e', 'B', 'G', 'D', 'A', 'E'];
+const OPEN_SEMITONES = { E: 4, A: 9, D: 2, G: 7, B: 11, e: 4 };
+const OPEN_MIDI = { E: 40, A: 45, D: 50, G: 55, B: 59, e: 64 };
+const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const FLAT_MAP = { Eb:'D#', Bb:'A#', Ab:'G#', Db:'C#', Gb:'F#', Fb:'E', Cb:'B' };
+const INTERVAL_NAME_MAP = {
+  R:'R', '1':'R', b3:'m3', m3:'m3', '3':'3',
+  b5:'dim5', '5-':'dim5', dim5:'dim5', '5':'5',
+  '#5':'aug5', '5+':'aug5', aug5:'aug5',
+};
+const STRING_TO_ORDINAL = { e:'1st', B:'2nd', G:'3rd', D:'4th', A:'5th', E:'6th' };
+
+const COLOR_BG = '#000000';
+const COLOR_FG = '#ffffff';
+const COLOR_LINE = '#9b9b9b';
+const COLOR_ROOT = '#ffff00';
+const COLOR_THIRD = '#ff3232';
+const COLOR_FIFTH = '#00a0ff';
+const INTERVAL_COLORS = {
+  R: COLOR_ROOT, '3': COLOR_THIRD, m3: COLOR_THIRD,
+  '5': COLOR_FIFTH, dim5: COLOR_FIFTH, aug5: COLOR_FIFTH,
+};
+
+const IMG_H = 168;
+const TAB_STRING_SPACING = 17;
+const TAB_LINE_LEFT = 30;
+const TAB_LINE_WIDTH = 120;
+const MARGIN = 16;
+const TAB_Y = 54;
+const TAB_LABEL_W = 70;
+const GAP = 24;
+
+// ---- helpers ----
+function ordinal(n) {
+  if (11 <= n % 100 && n % 100 <= 13) return n + 'th';
+  const s = ['th','st','nd','rd'];
+  return n + (s[n % 10] || 'th');
+}
+function formatTitle(name) {
+  return name.replace(/\(root fret (\d+), (\w) string\)/, (_, fret, str) =>
+    `(${STRING_TO_ORDINAL[str]} string, ${ordinal(+fret)} fret)`);
+}
+function buildToneMap(triad) {
+  const m = {};
+  for (const [interval, note] of Object.entries(triad.chord_tones)) {
+    const normalized = FLAT_MAP[note] || note;
+    const display = INTERVAL_NAME_MAP[interval] || interval;
+    m[normalized] = { interval: display, original: note };
+  }
+  return m;
+}
+function getWrittenPitch(string, fret) {
+  const midi = OPEN_MIDI[string] + fret + 12;
+  const octave = Math.floor(midi / 12) - 1;
+  const noteIdx = midi % 12;
+  return { noteName: NOTE_NAMES[noteIdx], octave };
+}
+function extractQuality(name) {
+  const parts = name.split(' ');
+  return parts.length >= 2 ? parts[1] : 'Major';
+}
+
+const KEY_SHARPS = { C:0, G:1, D:2, A:3, E:4, B:5, 'F#':6, 'C#':7 };
+const KEY_FLATS = { F:1, Bb:2, Eb:3, Ab:4, Db:5, Gb:6, Cb:7 };
+const SHARP_ORDER_NOTES = ['F#','C#','G#','D#','A#','E#','B#'];
+const FLAT_ORDER_NOTES = ['Bb','Eb','Ab','Db','Gb','Cb','Fb'];
+
+function getKeySigInfo(root, quality) {
+  let key;
+  if (quality === 'Major' || quality === 'Augmented') {
+    key = root;
+  } else {
+    const rootNorm = FLAT_MAP[root] || root;
+    const idx = NOTE_NAMES.indexOf(rootNorm);
+    const relIdx = (idx + 3) % 12;
+    key = NOTE_NAMES[relIdx];
+    const enh = { 'A#':'Bb', 'D#':'Eb', 'G#':'Ab' };
+    key = enh[key] || key;
+  }
+  if (key in KEY_SHARPS) {
+    return { vexKey: key, accNotes: SHARP_ORDER_NOTES.slice(0, KEY_SHARPS[key]), type: 'sharp' };
+  } else if (key in KEY_FLATS) {
+    return { vexKey: key, accNotes: FLAT_ORDER_NOTES.slice(0, KEY_FLATS[key]), type: 'flat' };
+  }
+  return { vexKey: 'C', accNotes: [], type: 'none' };
+}
+
+// ---- main render ----
+function renderDiagram(triad) {
+  const toneMap = buildToneMap(triad);
+  const quality = extractQuality(triad.name);
+  const keySigInfo = getKeySigInfo(triad.root, quality);
+
+  // Collect played notes
+  const notes = [];
+  for (const s of STRING_ORDER) {
+    const fret = triad.strings[s];
+    if (fret === -1) continue;
+    const { noteName, octave } = getWrittenPitch(s, fret);
+    const semitone = (OPEN_SEMITONES[s] + fret) % 12;
+    const sounding = NOTE_NAMES[semitone];
+    const entry = toneMap[sounding];
+    notes.push({ noteName, octave, entry, string: s, fret });
+  }
+  notes.sort((a, b) => (a.octave * 12 + NOTE_NAMES.indexOf(a.noteName)) -
+                        (b.octave * 12 + NOTE_NAMES.indexOf(b.noteName)));
+
+  // ---- Render VexFlow staff off-screen ----
+  const vexDiv = document.getElementById('vexStaff');
+  vexDiv.innerHTML = '';
+  // Move on-screen temporarily for VexFlow to measure correctly
+  vexDiv.style.left = '0px';
+  vexDiv.style.top = '0px';
+
+  const vexW = 180;
+  const vexFullH = IMG_H;
+
+  const { Renderer, Stave, StaveNote, Voice, Formatter, Accidental } = Vex.Flow;
+  const renderer = new Renderer(vexDiv, Renderer.Backends.SVG);
+  renderer.resize(vexW, vexFullH);
+  const vexCtx = renderer.getContext();
+
+  // Position stave: VexFlow stave Y is the top of the stave bounding box,
+  // the actual top staff line is ~15px below that.
+  const staveY = TAB_Y - 15;
+  const staveWidth = vexW - 5;
+  const stave = new Stave(0, staveY, staveWidth);
+  stave.addClef('treble');
+  const ks = keySigInfo.vexKey;
+  if (ks !== 'C') stave.addKeySignature(ks);
+  stave.setContext(vexCtx).draw();
+
+  // Build note
+  const vexKeys = notes.map(n => {
+    let name = n.noteName;
+    let acc = '';
+    if (name.includes('#')) { acc = '#'; name = name.replace('#', ''); }
+    return { key: `${name}/${n.octave}`, acc, entry: n.entry };
+  });
+
+  if (vexKeys.length > 0) {
+    // Use quarter note for filled noteheads, then hide the stem
+    const sn = new StaveNote({
+      keys: vexKeys.map(k => k.key),
+      duration: 'q',
+      auto_stem: true,
+    });
+
+    // Accidentals
+    const keySigLetters = {};
+    for (const a of keySigInfo.accNotes) {
+      const letter = a.replace(/[#b]/g, '');
+      keySigLetters[letter] = a.includes('#') ? '#' : 'b';
+    }
+    for (let i = 0; i < vexKeys.length; i++) {
+      const letter = vexKeys[i].key.split('/')[0];
+      const noteAcc = vexKeys[i].acc;
+      const keySigDefault = keySigLetters[letter] || '';
+      if (noteAcc !== keySigDefault) {
+        sn.addModifier(new Accidental(noteAcc === '' ? 'n' : noteAcc), i);
+      }
+    }
+
+    // Color noteheads
+    for (let i = 0; i < vexKeys.length; i++) {
+      const entry = vexKeys[i].entry;
+      if (entry) {
+        const color = INTERVAL_COLORS[entry.interval] || COLOR_FG;
+        sn.setKeyStyle(i, { fillStyle: color, strokeStyle: color });
+      }
+    }
+
+    // Hide stem by making it transparent
+    sn.setStemStyle({ fillStyle: 'transparent', strokeStyle: 'transparent' });
+    sn.setFlagStyle({ fillStyle: 'transparent', strokeStyle: 'transparent' });
+
+    const voice = new Voice({ num_beats: 4, beat_value: 4 });
+    voice.setMode(Voice.Mode.SOFT);
+    voice.addTickables([sn]);
+    new Formatter().joinVoices([voice]).format([voice], staveWidth - 90);
+    voice.draw(vexCtx, stave);
+
+    // Capture actual notehead Y positions from VexFlow
+    const noteYs = sn.getYs();  // array of Y coords, one per key (lowest to highest)
+    for (let i = 0; i < notes.length; i++) {
+      notes[i]._vexY = noteYs[i];
+    }
+  }
+
+  // Recolor SVG for dark background
+  const svg = vexDiv.querySelector('svg');
+  const LIGHT = '#9b9b9b';
+  const PRESERVE = new Set(Object.values(INTERVAL_COLORS));
+  PRESERVE.add('transparent');
+  if (svg) {
+    svg.style.background = 'transparent';
+    svg.querySelectorAll('line, path, rect, text').forEach(node => {
+      for (const attr of ['stroke', 'fill']) {
+        const v = node.getAttribute(attr);
+        if (v && v !== 'none' && !PRESERVE.has(v)) node.setAttribute(attr, LIGHT);
+      }
+    });
+    svg.setAttribute('fill', LIGHT);
+    svg.setAttribute('stroke', LIGHT);
+  }
+
+  // Move off-screen again
+  vexDiv.style.left = '-9999px';
+  vexDiv.style.top = '-9999px';
+
+  // ---- Draw final canvas ----
+  const tabTotalW = TAB_LINE_LEFT + TAB_LINE_WIDTH + 12 + TAB_LABEL_W;
+  const staffX = MARGIN + tabTotalW + GAP;
+  const staffLabelW = 55;
+  const imgW = staffX + vexW + 8 + staffLabelW + MARGIN;
+
+  const canvas = document.getElementById('output');
+  canvas.width = imgW;
+  canvas.height = IMG_H;
+  const ctx = canvas.getContext('2d');
+
+  ctx.fillStyle = COLOR_BG;
+  ctx.fillRect(0, 0, imgW, IMG_H);
+
+  // Title
+  ctx.fillStyle = COLOR_FG;
+  ctx.font = 'bold 17px "Segoe UI", sans-serif';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(formatTitle(triad.name), MARGIN, 28);
+
+  // ---- Tab section ----
+  const lineLeft = MARGIN + TAB_LINE_LEFT;
+  const lineRight = lineLeft + TAB_LINE_WIDTH;
+  const fretCenterX = lineLeft + TAB_LINE_WIDTH / 2;
+  const labelX = lineRight + 12;
+
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i < STRING_ORDER.length; i++) {
+    const s = STRING_ORDER[i];
+    const sy = TAB_Y + i * TAB_STRING_SPACING;
+    const fret = triad.strings[s];
+
+    // String label
+    ctx.font = '14px "Segoe UI", sans-serif';
+    ctx.fillStyle = COLOR_FG;
+    const lblW = ctx.measureText(s).width;
+    ctx.fillText(s, lineLeft - lblW - 8, sy);
+
+    // String line
+    ctx.strokeStyle = COLOR_LINE;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(lineLeft, sy);
+    ctx.lineTo(lineRight, sy);
+    ctx.stroke();
+
+    if (fret !== -1) {
+      const fStr = String(fret);
+      ctx.font = 'bold 15px "Segoe UI", sans-serif';
+      const fW = ctx.measureText(fStr).width;
+      const fX = fretCenterX - fW / 2;
+
+      ctx.fillStyle = COLOR_BG;
+      ctx.fillRect(fX - 3, sy - 9, fW + 6, 18);
+
+      const semitone = (OPEN_SEMITONES[s] + fret) % 12;
+      const noteName = NOTE_NAMES[semitone];
+      const entry = toneMap[noteName];
+      const color = entry ? (INTERVAL_COLORS[entry.interval] || COLOR_FG) : COLOR_FG;
+
+      ctx.fillStyle = color;
+      ctx.fillText(fStr, fX, sy);
+
+      if (entry) {
+        ctx.font = 'bold 13px "Segoe UI", sans-serif';
+        ctx.fillStyle = color;
+        ctx.fillText(`${entry.interval}  ${entry.original}`, labelX, sy);
+      }
+    }
+  }
+
+  // ---- Composite VexFlow SVG onto canvas ----
+  if (svg) {
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      ctx.drawImage(img, staffX, 0);
+      URL.revokeObjectURL(url);
+      drawStaffLegend(ctx, notes, staffX + vexW + 8);
+      window.__diagramReady = true;
+    };
+    img.src = url;
+  } else {
+    window.__diagramReady = true;
+  }
+}
+
+function drawStaffLegend(ctx, notes, labelX) {
+  ctx.font = 'bold 13px "Segoe UI", sans-serif';
+  const sampleH = 14;
+  const minDist = sampleH + 3;
+
+  // Use actual VexFlow notehead Y positions (from sn.getYs())
+  const labelYs = notes.map(n => n._vexY != null ? n._vexY : TAB_Y);
+
+  // Enforce min spacing (notes sorted ascending pitch → descending Y)
+  for (let j = labelYs.length - 2; j >= 0; j--) {
+    if (labelYs[j] - labelYs[j + 1] < minDist) {
+      labelYs[j] = labelYs[j + 1] + minDist;
+    }
+  }
+
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i < notes.length; i++) {
+    const n = notes[i];
+    if (!n.entry) continue;
+    const color = INTERVAL_COLORS[n.entry.interval] || COLOR_FG;
+    ctx.fillStyle = color;
+    ctx.fillText(`${n.entry.interval}  ${n.entry.original}`, labelX, labelYs[i]);
+  }
+}
+
+window.renderDiagram = renderDiagram;
+</script>
+</body>
+</html>

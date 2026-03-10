@@ -272,10 +272,10 @@ def draw_staff_section(draw, x, staff_top, staff_bottom, triad, ss=1):
     # Measure how wide key sig + notes will be, then set staff width
     quality = _extract_quality(triad["name"])
     accidentals, positions, glyph = get_key_signature(triad["root"], quality)
-    acc_spacing = line_spacing
+    acc_spacing = line_spacing * 0.55
     acc_width = int(len(accidentals) * acc_spacing)
-    clef_w = int(line_spacing * 4)
-    staff_width = clef_w + acc_width + 20 * ss + 30 * ss + 16 * ss
+    clef_w = int(line_spacing * 3.2)
+    staff_width = clef_w + acc_width + 28 * ss + 30 * ss + 16 * ss
     staff_right = x + staff_width
 
     # Draw staff lines
@@ -283,17 +283,32 @@ def draw_staff_section(draw, x, staff_top, staff_bottom, triad, ss=1):
         ly = staff_top + i * line_spacing
         draw.line([(x, ly), (staff_right, ly)], fill=COLOR_LINE, width=ss)
 
-    # Treble clef
-    clef_font_size = int(72 * line_spacing / 12)
+    # Treble clef — the G clef curl sits on the G4 line (2nd line from bottom).
+    # Standard engraving: clef extends from ~bottom line up to ~1 space above
+    # the top line, so total height ≈ 5 line-spacings (1.25× staff height).
+    # The curl (G4) is at roughly 58% down from the glyph top.
+    target_clef_h = line_spacing * 5
+    # Bootstrap: measure glyph at a reference size, then scale proportionally
+    ref_size = max(int(line_spacing * 5), 1)
+    ref_font = ImageFont.truetype(FONT_SYMBOL, ref_size)
+    ref_bbox = ref_font.getbbox("\U0001D11E")
+    ref_h = ref_bbox[3] - ref_bbox[1]
+    clef_font_size = max(int(ref_size * target_clef_h / ref_h), 1)
     clef_font = ImageFont.truetype(FONT_SYMBOL, clef_font_size)
     clef_bbox = clef_font.getbbox("\U0001D11E")
     clef_h = clef_bbox[3] - clef_bbox[1]
     g4_y = _staff_y(staff_top, 1, line_spacing)
-    clef_y = g4_y - clef_h * 0.45 - clef_bbox[1]
+    clef_y = g4_y - clef_h * 0.58 - clef_bbox[1]
     draw.text((x + 4 * ss, clef_y), "\U0001D11E", fill=(128, 128, 128), font=clef_font)
 
-    # Accidental font
-    acc_font_size = int(22 * line_spacing / 12 * 1.1)
+    # Accidental font — standard engraving: sharp ≈ 2.8 staff spaces tall,
+    # flat ≈ 2.5 staff spaces tall. We target 2.5× line_spacing glyph height.
+    target_acc_h = line_spacing * 2.5
+    ref_acc_sz = max(int(line_spacing * 2), 1)
+    ref_acc_font = ImageFont.truetype(FONT_SYMBOL, ref_acc_sz)
+    ref_acc_bbox = ref_acc_font.getbbox("\u266F")
+    ref_acc_h = ref_acc_bbox[3] - ref_acc_bbox[1]
+    acc_font_size = max(int(ref_acc_sz * target_acc_h / ref_acc_h), 1)
     acc_font = ImageFont.truetype(FONT_SYMBOL, acc_font_size)
 
     # Key signature accidentals
@@ -302,11 +317,17 @@ def draw_staff_section(draw, x, staff_top, staff_bottom, triad, ss=1):
         ay = _staff_y(staff_top, pos, line_spacing)
         acc_bbox = acc_font.getbbox(glyph)
         acc_h = acc_bbox[3] - acc_bbox[1]
-        draw.text((acc_x + int(i * acc_spacing), ay - acc_h / 2 - acc_bbox[1]),
+        # Sharps: center vertically on the line. Flats: the loop (lower portion,
+        # ~65% from top) should sit on the line.
+        if glyph == "\u266D":  # flat
+            gy = ay - acc_h * 0.65 - acc_bbox[1]
+        else:  # sharp
+            gy = ay - acc_h * 0.50 - acc_bbox[1]
+        draw.text((acc_x + int(i * acc_spacing), gy),
                   glyph, fill=COLOR_FG, font=acc_font)
 
-    # Collect notes
-    note_x = acc_x + acc_width + 20 * ss
+    # Collect notes — extra gap after key signature before the chord
+    note_x = acc_x + acc_width + 28 * ss
     notes = []
     for s in STRING_ORDER:
         fret = triad["strings"][s]
@@ -364,6 +385,27 @@ def draw_staff_section(draw, x, staff_top, staff_bottom, triad, ss=1):
     # Draw noteheads and labels
     label_x = staff_right + 8 * ss
     acc_list = accidentals
+
+    # Compute label Y positions with minimum 3px gap between adjacent labels.
+    # Notes are sorted bottom-to-top (ascending position = descending Y).
+    # Measure label height once for gap calculations.
+    sample_bbox = label_font.getbbox("Rg")
+    label_h = sample_bbox[3] - sample_bbox[1]
+    min_gap = 3 * ss  # 3px at final resolution
+    min_center_dist = label_h + min_gap
+
+    label_ys = []
+    for i, (note_name, octave, pos, entry) in enumerate(notes):
+        label_ys.append(_staff_y(staff_top, pos, line_spacing))
+    # label_ys are in descending order (bottom note = highest Y comes first
+    # since notes sorted by ascending position). Actually notes sorted ascending
+    # by pos, so label_ys go from high Y (bottom) to low Y (top).
+    # Enforce min spacing: sweep from top (last) to bottom (first),
+    # pushing labels down if too close to the one above.
+    for j in range(len(label_ys) - 2, -1, -1):
+        if label_ys[j] - label_ys[j + 1] < min_center_dist:
+            label_ys[j] = label_ys[j + 1] + min_center_dist
+
     for i, (note_name, octave, pos, entry) in enumerate(notes):
         ny = _staff_y(staff_top, pos, line_spacing)
         nx = note_x + x_offsets[i]
@@ -392,7 +434,7 @@ def draw_staff_section(draw, x, staff_top, staff_bottom, triad, ss=1):
             label = f"{entry['interval']}  {entry['original']}"
             l_bbox = label_font.getbbox(label)
             l_h = l_bbox[3] - l_bbox[1]
-            draw.text((label_x, ny - l_h / 2 - l_bbox[1]),
+            draw.text((label_x, label_ys[i] - l_h / 2 - l_bbox[1]),
                       label, fill=note_color, font=label_font)
 
     return staff_width
@@ -449,9 +491,9 @@ def render_chord_diagram(triad, output_path):
     staff_scale = 0.50
     staff_height = tab_height * staff_scale
     line_spacing = staff_height / (STAFF_LINES - 1)
-    clef_w = int(line_spacing * 4)
-    acc_w = int(len(accidentals) * line_spacing)
-    staff_w = clef_w + acc_w + 20 + 30 + 16
+    clef_w = int(line_spacing * 3.2)
+    acc_w = int(len(accidentals) * line_spacing * 0.55)
+    staff_w = clef_w + acc_w + 28 + 30 + 16
     staff_label_w = 50
 
     img_w = staff_x + staff_w + 8 + staff_label_w + margin
@@ -496,14 +538,21 @@ def filename_for_triad(triad):
 
 
 if __name__ == "__main__":
-    # Test: E Minor (root fret 0, E string)
-    test_triad = {
-        "name": "E Minor (root fret 0, E string)",
-        "root": "E",
-        "chord_tones": {"b3": "G", "5": "B", "R": "E"},
-        "strings": {"E": 0, "A": 2, "D": 2, "G": -1, "B": -1, "e": -1},
-    }
+    import json
+    import sys
 
-    out = STATIC_DIR / filename_for_triad(test_triad)
-    render_chord_diagram(test_triad, out)
-    print(f"Generated: {out}")
+    triads_path = Path(__file__).resolve().parent.parent / "sent_triads.json"
+    data = json.loads(triads_path.read_text())
+    triads = data["available_triads"]
+
+    print(f"Generating {len(triads)} chord diagrams...")
+    for i, triad in enumerate(triads, 1):
+        out = STATIC_DIR / filename_for_triad(triad)
+        try:
+            render_chord_diagram(triad, out)
+        except Exception as e:
+            print(f"  FAILED: {triad['name']}: {e}", file=sys.stderr)
+            continue
+        if i % 20 == 0 or i == len(triads):
+            print(f"  {i}/{len(triads)} done")
+    print(f"All diagrams saved to {STATIC_DIR}")
