@@ -1,85 +1,113 @@
 #!/usr/bin/env node
+/**
+ * Generate PNG chord diagram images for guitar triads using VexFlow.
+ *
+ * Uses Playwright to render an HTML page with VexFlow staff notation
+ * and canvas-drawn tablature, then screenshots to PNG.
+ */
+
 const fs = require('fs');
 const path = require('path');
+const { chromium } = require('playwright');
 
-const triadsPath = path.join(__dirname, '../sent_triads.json');
-const data = JSON.parse(fs.readFileSync(triadsPath, 'utf8'));
+const TRIADS_PATH = path.join(__dirname, '..', 'sent_triads.json');
+const STATIC_DIR = path.join(__dirname, 'static');
+const TEMPLATE_PATH = path.join(__dirname, 'chord_template.html');
 
-const available = data.available_triads.filter(t => !data.sent_triads.includes(t.name));
-if (available.length === 0) {
-  console.log('All triads have been sent!');
-  process.exit(0);
+function filenameForTriad(triad) {
+  const m = triad.name.match(/^(.+?) \(root fret (\d+), (\w) string\)$/);
+  if (m) {
+    const chord = m[1].replace(/ /g, '_').replace(/#/g, 's');
+    return `${chord}_root${m[2]}_${m[3]}.png`;
+  }
+  return triad.name.replace(/ /g, '_') + '.png';
 }
 
-const triad = available[Math.floor(Math.random() * available.length)];
+async function main() {
+  const data = JSON.parse(fs.readFileSync(TRIADS_PATH, 'utf8'));
+  const triads = data.available_triads;
 
-const stringToOrdinal = { e: '1st', B: '2nd', G: '3rd', D: '4th', A: '5th', E: '6th' };
-function ordinal(n) {
-  const s = ['th','st','nd','rd'], v = n % 100;
-  return n + (s[(v - 20) % 10] || s[v] || s[0]);
-}
-function reformatParenthetical(name) {
-  return name.replace(/\(root fret (\d+), (\w) string\)/, (_, fret, str) =>
-    `(${stringToOrdinal[str]} string, ${ordinal(+fret)} fret)`
-  );
-}
+  fs.mkdirSync(STATIC_DIR, { recursive: true });
 
-const noteNames = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-const openSemitones = { E: 4, A: 9, D: 2, G: 7, B: 11, e: 4 };
-const stringOrder = ['e', 'B', 'G', 'D', 'A', 'E'];
+  // Check which PNGs are missing
+  const missing = triads.filter(t => {
+    const pngPath = path.join(STATIC_DIR, filenameForTriad(t));
+    return !fs.existsSync(pngPath);
+  });
 
-// Build reverse map: note name -> { interval, original }
-const toneMap = {};
-const flatMap = { 'Eb':'D#', 'Bb':'A#', 'Ab':'G#', 'Db':'C#', 'Gb':'F#', 'Fb':'E', 'Cb':'B' };
-const intervalNameMap = { 'R':'R', '1':'R', 'b3':'m3', 'm3':'m3', '3':'3', 'b5':'dim5', '5-':'dim5', 'dim5':'dim5', '5':'5', '#5':'aug5', '5+':'aug5', 'aug5':'aug5' };
-for (const [interval, note] of Object.entries(triad.chord_tones)) {
-  const normalized = flatMap[note] || note;
-  const displayInterval = intervalNameMap[interval] || interval;
-  toneMap[normalized] = { interval: displayInterval, original: note };
-}
-
-let diagram = '';
-const intervals = {};
-
-for (const s of stringOrder) {
-  const fret = triad.strings[s];
-  let fretStr, intervalLabel = '';
-
-  if (fret === -1) {
-    fretStr = '-------';
+  if (missing.length === 0) {
+    // console.log(`All ${triads.length} chord diagram PNGs are present.`);
   } else {
-    const f = String(fret);
-    // Pad fret to 7 chars centered
-    const totalPad = 7 - f.length;
-    const left = Math.floor(totalPad / 2);
-    const right = totalPad - left;
-    fretStr = '-'.repeat(left) + f + '-'.repeat(right);
 
-    const semitone = (openSemitones[s] + fret) % 12;
-    const noteName = noteNames[semitone];
-    const entry = toneMap[noteName];
-    intervalLabel = entry ? entry.interval : '?';
-    if (entry && !intervals[intervalLabel]) intervals[intervalLabel] = entry.original;
+  console.log(`${missing.length} of ${triads.length} chord diagrams missing — regenerating...`);
+
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+
+  // Load template
+  const templateUrl = 'file:///' + TEMPLATE_PATH.replace(/\\/g, '/');
+  await page.goto(templateUrl, { waitUntil: 'networkidle' });
+
+  for (let i = 0; i < missing.length; i++) {
+    const triad = missing[i];
+    const outPath = path.join(STATIC_DIR, filenameForTriad(triad));
+
+    try {
+      // Reset and render
+      await page.evaluate((t) => {
+        window.__diagramReady = false;
+        window.renderDiagram(t);
+      }, triad);
+
+      // Wait for SVG→canvas compositing
+      await page.waitForFunction(() => window.__diagramReady === true, { timeout: 5000 });
+
+      // Screenshot the canvas element
+      const canvas = await page.$('canvas');
+      if (canvas) {
+        await canvas.screenshot({ path: outPath, type: 'png' });
+      }
+    } catch (e) {
+      console.error(`  FAILED: ${triad.name}: ${e.message}`);
+      continue;
+    }
+
+    if ((i + 1) % 20 === 0 || i === missing.length - 1) {
+      console.log(`  ${i + 1}/${missing.length} done`);
+    }
   }
 
-  diagram += `${s}|${fretStr}${intervalLabel ? '  ' + intervalLabel : ''}\n`;
+    await browser.close();
+    console.log(`Regenerated ${missing.length} diagrams in ${STATIC_DIR}`);
+  }
+
+  resetSentIfAllSent(data);
+  pickUnsent(data);
+
+  fs.writeFileSync(TRIADS_PATH, JSON.stringify(data, null, 2) + '\n');
 }
 
-// Build interval legend in musical order (root first)
-const intervalOrder = ['R', 'm3', '3', 'dim5', '5', 'aug5'];
-const legendParts = [];
-for (const label of intervalOrder) {
-  if (intervals[label]) legendParts.push(`${label}=${intervals[label]}`);
+function resetSentIfAllSent(data) {
+  const allNames = new Set(data.available_triads.map(t => t.name));
+  const allSent = data.sent_triads.length >= allNames.size &&
+    data.sent_triads.every(name => allNames.has(name));
+  if (allSent) {
+    data.sent_triads = [];
+    console.log('All triads have been sent — cleared sent list.');
+  }
 }
-// Include any labels not in the predefined order
-for (const [label, note] of Object.entries(intervals)) {
-  if (!intervalOrder.includes(label)) legendParts.push(`${label}=${note}`);
+
+function pickUnsent(data) {
+  const sentSet = new Set(data.sent_triads);
+  const unsent = data.available_triads.filter(t => !sentSet.has(t.name));
+  if (unsent.length === 0) {
+    console.error('No unsent triads available.');
+    process.exit(1);
+  }
+  const pick = unsent[Math.floor(Math.random() * unsent.length)];
+  data.sent_triads.push(pick.name);
+  const pngPath = path.join(STATIC_DIR, filenameForTriad(pick));
+  console.log(pngPath);
 }
 
-let msg = `${reformatParenthetical(triad.name)}\n\n\`\`\`\n${diagram}\`\`\`\nIntervals: ${legendParts.join(', ')}`;
-
-console.log(msg);
-
-// Update sent_triads
-data.sent_triads.push(triad.name);
-fs.writeFileSync(triadsPath, JSON.stringify(data, null, 2) + '\n');
+main().catch(e => { console.error(e); process.exit(1); });
