@@ -50,6 +50,16 @@ const TAB_Y = 54;
 const TAB_LABEL_W = 70;
 const GAP = 24;
 
+// ---- enharmonic helpers ----
+const SHARP_TO_FLAT = { 'C#':'Db', 'D#':'Eb', 'F#':'Gb', 'G#':'Ab', 'A#':'Bb' };
+
+function respellForKey(noteName, keySigInfo) {
+  if (keySigInfo.type === 'flat' && noteName in SHARP_TO_FLAT) {
+    return SHARP_TO_FLAT[noteName];
+  }
+  return noteName;
+}
+
 // ---- helpers ----
 function ordinal(n) {
   if (11 <= n % 100 && n % 100 <= 13) return n + 'th';
@@ -116,14 +126,19 @@ function renderDiagram(triad) {
   for (const s of STRING_ORDER) {
     const fret = triad.strings[s];
     if (fret === -1) continue;
-    const { noteName, octave } = getWrittenPitch(s, fret);
+    const raw = getWrittenPitch(s, fret);
+    const noteName = respellForKey(raw.noteName, keySigInfo);
+    const octave = raw.octave;
     const semitone = (OPEN_SEMITONES[s] + fret) % 12;
     const sounding = NOTE_NAMES[semitone];
     const entry = toneMap[sounding];
     notes.push({ noteName, octave, entry, string: s, fret });
   }
-  notes.sort((a, b) => (a.octave * 12 + NOTE_NAMES.indexOf(a.noteName)) -
-                        (b.octave * 12 + NOTE_NAMES.indexOf(b.noteName)));
+  notes.sort((a, b) => {
+    const aSemi = NOTE_NAMES.indexOf(FLAT_MAP[a.noteName] || a.noteName);
+    const bSemi = NOTE_NAMES.indexOf(FLAT_MAP[b.noteName] || b.noteName);
+    return (a.octave * 12 + aSemi) - (b.octave * 12 + bSemi);
+  });
 
   // ---- Render VexFlow staff off-screen ----
   const vexDiv = document.getElementById('vexStaff');
@@ -155,6 +170,7 @@ function renderDiagram(triad) {
     let name = n.noteName;
     let acc = '';
     if (name.includes('#')) { acc = '#'; name = name.replace('#', ''); }
+    else if (name.includes('b')) { acc = 'b'; name = name.replace('b', ''); }
     return { key: `${name}/${n.octave}`, acc, entry: n.entry };
   });
 
@@ -166,7 +182,8 @@ function renderDiagram(triad) {
       auto_stem: true,
     });
 
-    // Accidentals
+    // Accidentals — only add explicit accidentals when the note differs
+    // from what the key signature implies for that letter name.
     const keySigLetters = {};
     for (const a of keySigInfo.accNotes) {
       const letter = a.replace(/[#b]/g, '');
@@ -174,10 +191,11 @@ function renderDiagram(triad) {
     }
     for (let i = 0; i < vexKeys.length; i++) {
       const letter = vexKeys[i].key.split('/')[0];
-      const noteAcc = vexKeys[i].acc;
-      const keySigDefault = keySigLetters[letter] || '';
+      const noteAcc = vexKeys[i].acc;         // '', '#', or 'b'
+      const keySigDefault = keySigLetters[letter] || '';  // '', '#', or 'b'
       if (noteAcc !== keySigDefault) {
-        sn.addModifier(new Accidental(noteAcc === '' ? 'n' : noteAcc), i);
+        const displayAcc = noteAcc === '' ? 'n' : noteAcc;
+        sn.addModifier(new Accidental(displayAcc), i);
       }
     }
 
