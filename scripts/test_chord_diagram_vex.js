@@ -23,6 +23,7 @@ const INTERVAL_NAME_MAP = {
   '#5':'aug5', '5+':'aug5', aug5:'aug5',
 };
 const STRING_TO_ORDINAL = { e:'1st', B:'2nd', G:'3rd', D:'4th', A:'5th', E:'6th' };
+const OPEN_SEMITONES = { E: 4, A: 9, D: 2, G: 7, B: 11, e: 4 };
 const KEY_SHARPS = { C:0, G:1, D:2, A:3, E:4, B:5, 'F#':6, 'C#':7 };
 const KEY_FLATS = { F:1, Bb:2, Eb:3, Ab:4, Db:5, Gb:6, Cb:7 };
 const SHARP_ORDER_NOTES = ['F#','C#','G#','D#','A#','E#','B#'];
@@ -34,9 +35,40 @@ function ordinal(n) {
   return n + (s[n % 10] || 'th');
 }
 
-function formatTitle(name) {
-  return name.replace(/\(root fret (\d+), (\w) string\)/, (_, fret, str) =>
-    `(${STRING_TO_ORDINAL[str]} string, ${ordinal(+fret)} fret)`);
+function noteToSemitone(name) {
+  const n = FLAT_MAP[name] || name;
+  return NOTE_NAMES.indexOf(n);
+}
+function getInversion(triad) {
+  const BASS_ORDER = ['E', 'A', 'D', 'G', 'B', 'e'];
+  let bassString = null, bassFret = -1;
+  for (const s of BASS_ORDER) {
+    if (triad.strings[s] >= 0) { bassString = s; bassFret = triad.strings[s]; break; }
+  }
+  if (!bassString) return 'root position';
+  const bassSemitone = (OPEN_SEMITONES[bassString] + bassFret) % 12;
+  for (const [interval, note] of Object.entries(triad.chord_tones)) {
+    if (noteToSemitone(note) === bassSemitone) {
+      if (interval === 'R') return 'root position';
+      if (interval === '3' || interval === 'm3') return '1st inversion';
+      return '2nd inversion';
+    }
+  }
+  return 'root position';
+}
+const COLOR_FG = '#ffffff';
+function formatTitle(triad) {
+  const m = triad.name.match(/^(.+?)\s+(Major|Minor|Diminished|Augmented)\s+\(root fret (\d+), (\w) string\)$/);
+  if (!m) return { chordName: triad.name, inversion: '', line2: '', chordColor: COLOR_FG };
+  const [, root, quality, fret, str] = m;
+  const inversion = getInversion(triad);
+  const isBright = quality === 'Major' || quality === 'Augmented';
+  return {
+    chordName: `${root} ${quality.toLowerCase()}`,
+    inversion,
+    line2: `${STRING_TO_ORDINAL[str]} string, ${ordinal(+fret)} fret`,
+    chordColor: isBright ? '#00e5ff' : '#ff69b4'
+  };
 }
 
 function getWrittenPitch(string, fret) {
@@ -171,14 +203,85 @@ describe('getKeySigInfo', () => {
 });
 
 describe('formatTitle', () => {
-  it('basic formatting', () => {
-    assert.equal(formatTitle('C Major (root fret 3, A string)'),
-                 'C Major (5th string, 3rd fret)');
+  it('root position C Major', () => {
+    const triad = {
+      name: 'C Major (root fret 3, A string)',
+      root: 'C',
+      chord_tones: { R: 'C', '3': 'E', '5': 'G' },
+      strings: { E: -1, A: 3, D: 2, G: 0, B: -1, e: -1 }
+    };
+    const result = formatTitle(triad);
+    assert.equal(result.chordName, 'C major');
+    assert.equal(result.inversion, 'root position');
+    assert.equal(result.line2, '5th string, 3rd fret');
+    assert.equal(result.chordColor, '#00e5ff');
+  });
+
+  it('1st inversion (3rd in bass)', () => {
+    // E minor: R=E, m3=G, 5=B. If G is in the bass => 1st inversion
+    const triad = {
+      name: 'E Minor (root fret 0, G string)',
+      root: 'E',
+      chord_tones: { R: 'E', m3: 'G', '5': 'B' },
+      strings: { E: -1, A: -1, D: 5, G: 0, B: 0, e: -1 }
+    };
+    // Bass note: D string fret 5 = (2+5)%12 = 7 = G => m3 => 1st inversion
+    const result = formatTitle(triad);
+    assert.equal(result.chordName, 'E minor');
+    assert.equal(result.inversion, '1st inversion');
+    assert.equal(result.line2, '3rd string, 0th fret');
+    assert.equal(result.chordColor, '#ff69b4');
+  });
+
+  it('2nd inversion (5th in bass)', () => {
+    // C Major: R=C, 3=E, 5=G. G in the bass => 2nd inversion
+    const triad = {
+      name: 'C Major (root fret 5, D string)',
+      root: 'C',
+      chord_tones: { R: 'C', '3': 'E', '5': 'G' },
+      strings: { E: 3, A: -1, D: 5, G: 5, B: -1, e: -1 }
+    };
+    // Bass: E string fret 3 = (4+3)%12 = 7 = G => 5 => 2nd inversion
+    const result = formatTitle(triad);
+    assert.equal(result.chordName, 'C major');
+    assert.equal(result.inversion, '2nd inversion');
+    assert.equal(result.line2, '4th string, 5th fret');
+    assert.equal(result.chordColor, '#00e5ff');
   });
 
   it('high e string', () => {
-    assert.equal(formatTitle('E Minor (root fret 12, e string)'),
-                 'E Minor (1st string, 12th fret)');
+    const triad = {
+      name: 'E Minor (root fret 12, e string)',
+      root: 'E',
+      chord_tones: { R: 'E', m3: 'G', '5': 'B' },
+      strings: { E: -1, A: -1, B: 7, G: 12, e: 12, D: -1 }
+    };
+    // Bass: G string fret 12 = (7+12)%12 = 7 = G => m3 => 1st inversion
+    const result = formatTitle(triad);
+    assert.equal(result.chordName, 'E minor');
+    assert.equal(result.inversion, '1st inversion');
+    assert.equal(result.line2, '1st string, 12th fret');
+    assert.equal(result.chordColor, '#ff69b4');
+  });
+
+  it('augmented gets cyan', () => {
+    const triad = {
+      name: 'C Augmented (root fret 3, A string)',
+      root: 'C',
+      chord_tones: { R: 'C', '3': 'E', '5+': 'Ab' },
+      strings: { E: -1, A: 3, D: 2, G: 1, B: -1, e: -1 }
+    };
+    assert.equal(formatTitle(triad).chordColor, '#00e5ff');
+  });
+
+  it('diminished gets pink', () => {
+    const triad = {
+      name: 'C Diminished (root fret 3, A string)',
+      root: 'C',
+      chord_tones: { R: 'C', m3: 'Eb', '5-': 'Gb' },
+      strings: { E: -1, A: 3, D: 1, G: 11, B: -1, e: -1 }
+    };
+    assert.equal(formatTitle(triad).chordColor, '#ff69b4');
   });
 });
 

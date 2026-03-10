@@ -41,12 +41,12 @@ const INTERVAL_COLORS = {
   '5': COLOR_FIFTH, dim5: COLOR_FIFTH, aug5: COLOR_FIFTH,
 };
 
-const IMG_H = 168;
+const IMG_H = 182;
 const TAB_STRING_SPACING = 17;
 const TAB_LINE_LEFT = 30;
 const TAB_LINE_WIDTH = 120;
 const MARGIN = 16;
-const TAB_Y = 54;
+const TAB_Y = 68;
 const TAB_LABEL_W = 70;
 const GAP = 24;
 
@@ -66,9 +66,39 @@ function ordinal(n) {
   const s = ['th','st','nd','rd'];
   return n + (s[n % 10] || 'th');
 }
-function formatTitle(name) {
-  return name.replace(/\(root fret (\d+), (\w) string\)/, (_, fret, str) =>
-    `(${STRING_TO_ORDINAL[str]} string, ${ordinal(+fret)} fret)`);
+function noteToSemitone(name) {
+  const n = FLAT_MAP[name] || name;
+  return NOTE_NAMES.indexOf(n);
+}
+function getInversion(triad) {
+  const BASS_ORDER = ['E', 'A', 'D', 'G', 'B', 'e'];
+  let bassString = null, bassFret = -1;
+  for (const s of BASS_ORDER) {
+    if (triad.strings[s] >= 0) { bassString = s; bassFret = triad.strings[s]; break; }
+  }
+  if (!bassString) return 'root position';
+  const bassSemitone = (OPEN_SEMITONES[bassString] + bassFret) % 12;
+  for (const [interval, note] of Object.entries(triad.chord_tones)) {
+    if (noteToSemitone(note) === bassSemitone) {
+      if (interval === 'R') return 'root position';
+      if (interval === '3' || interval === 'm3') return '1st inversion';
+      return '2nd inversion';
+    }
+  }
+  return 'root position';
+}
+function formatTitle(triad) {
+  const m = triad.name.match(/^(.+?)\s+(Major|Minor|Diminished|Augmented)\s+\(root fret (\d+), (\w) string\)$/);
+  if (!m) return { chordName: triad.name, inversion: '', line2: '', chordColor: COLOR_FG };
+  const [, root, quality, fret, str] = m;
+  const inversion = getInversion(triad);
+  const isBright = quality === 'Major' || quality === 'Augmented';
+  return {
+    chordName: `${root} ${quality.toLowerCase()}`,
+    inversion,
+    line2: `${STRING_TO_ORDINAL[str]} string, ${ordinal(+fret)} fret`,
+    chordColor: isBright ? '#00e5ff' : '#ff69b4'
+  };
 }
 function buildToneMap(triad) {
   const m = {};
@@ -260,11 +290,17 @@ function renderDiagram(triad) {
   ctx.fillStyle = COLOR_BG;
   ctx.fillRect(0, 0, imgW, IMG_H);
 
-  // Title
-  ctx.fillStyle = COLOR_FG;
-  ctx.font = 'bold 17px "Segoe UI", sans-serif';
+  // Title (two lines)
   ctx.textBaseline = 'alphabetic';
-  ctx.fillText(formatTitle(triad.name), MARGIN, 28);
+  const title = formatTitle(triad);
+  ctx.font = 'bold 17px "Segoe UI", sans-serif';
+  ctx.fillStyle = title.chordColor;
+  const chordW = ctx.measureText(title.chordName).width;
+  ctx.fillText(title.chordName, MARGIN, 20);
+  ctx.fillStyle = COLOR_FG;
+  ctx.fillText(`  ${title.inversion}`, MARGIN + chordW, 20);
+  ctx.font = 'bold 17px "Segoe UI", sans-serif';
+  ctx.fillText(title.line2, MARGIN, 40);
 
   // ---- Tab section ----
   const lineLeft = MARGIN + TAB_LINE_LEFT;
