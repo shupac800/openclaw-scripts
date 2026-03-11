@@ -28,7 +28,9 @@
     "A Augmented (root fret 10, B string)",
     "F# Major (root fret 11, G string)",
     "Ab Major (root fret 4, E string)",
-    "F Major (root fret 6, B string)"
+    "F Major (root fret 6, B string)",
+    "B Major (root fret 2, A string)",
+    "Ab Augmented (root fret 1, G string)"
   ],
   "available_triads": [
     {

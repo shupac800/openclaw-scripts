@@ -150,6 +150,7 @@ function renderDiagram(triad) {
   const toneMap = buildToneMap(triad);
   const quality = extractQuality(triad.name);
   const keySigInfo = getKeySigInfo(triad.root, quality);
+  const chordColor = (quality === 'Major' || quality === 'Augmented') ? '#00e5ff' : '#ff69b4';
 
   // Collect played notes
   const notes = [];
@@ -260,12 +261,17 @@ function renderDiagram(triad) {
   const LIGHT = '#9b9b9b';
   const PRESERVE = new Set(Object.values(INTERVAL_COLORS));
   PRESERVE.add('transparent');
+  // Collect key signature elements to color with chord color
+  const keySigEls = new Set();
   if (svg) {
+    svg.querySelectorAll('.vf-keysignature *').forEach(el => keySigEls.add(el));
     svg.style.background = 'transparent';
     svg.querySelectorAll('line, path, rect, text').forEach(node => {
       for (const attr of ['stroke', 'fill']) {
         const v = node.getAttribute(attr);
-        if (v && v !== 'none' && !PRESERVE.has(v)) node.setAttribute(attr, LIGHT);
+        if (v && v !== 'none' && !PRESERVE.has(v)) {
+          node.setAttribute(attr, keySigEls.has(node) ? chordColor : LIGHT);
+        }
       }
     });
     svg.setAttribute('fill', LIGHT);
