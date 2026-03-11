@@ -37,7 +37,8 @@
     "Ab Diminished (root fret 9, B string)",
     "Bb Augmented (root fret 8, D string)",
     "Ab Diminished (root fret 11, A string)",
-    "Ab Minor (root fret 4, E string)"
+    "Ab Minor (root fret 4, E string)",
+    "F# Diminished (root fret 7, B string)"
   ],
   "available_triads": [
     {

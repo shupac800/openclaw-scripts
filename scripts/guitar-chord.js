@@ -15,13 +15,34 @@ const STATIC_DIR = path.join(__dirname, 'static');
 const TEMPLATE_PATH = path.join(__dirname, 'chord_template.html');
 const KEY_SIGS_PATH = path.join(STATIC_DIR, 'key_signatures.json');
 
+let enharmonicNorm = {};
+
+function normalizeTriad(triad) {
+  const m = triad.name.match(/^(.+?)\s+(Major|Minor|Diminished|Augmented)\s+(\(.+\))$/);
+  if (!m) return triad;
+  const [, root, quality, rest] = m;
+  const qualityWord = (quality === 'Augmented') ? 'major'
+    : (quality === 'Diminished') ? 'minor'
+    : quality.toLowerCase();
+  const lookupKey = `${root} ${qualityWord}`;
+  const mapped = enharmonicNorm[lookupKey];
+  if (!mapped) return triad;
+  const newRoot = mapped.split(' ')[0];
+  return {
+    ...triad,
+    root: newRoot,
+    name: `${newRoot} ${quality} ${rest}`,
+  };
+}
+
 function filenameForTriad(triad) {
-  const m = triad.name.match(/^(.+?) \(root fret (\d+), (\w) string\)$/);
+  const norm = normalizeTriad(triad);
+  const m = norm.name.match(/^(.+?) \(root fret (\d+), (\w) string\)$/);
   if (m) {
-    const chord = m[1].replace(/ /g, '_').replace(/#/g, 's');
+    const chord = m[1].replace(/ /g, '_').replace(/#/g, 's').replace(/b/g, 'b');
     return `${chord}_root${m[2]}_${m[3]}.png`;
   }
-  return triad.name.replace(/ /g, '_') + '.png';
+  return norm.name.replace(/ /g, '_') + '.png';
 }
 
 async function main() {
@@ -29,6 +50,10 @@ async function main() {
   const triads = data.available_triads;
 
   fs.mkdirSync(STATIC_DIR, { recursive: true });
+
+  // Load enharmonic normalization for filename generation
+  const keySigsData = JSON.parse(fs.readFileSync(KEY_SIGS_PATH, 'utf8'));
+  enharmonicNorm = keySigsData.enharmonicNormalization || {};
 
   // Check which PNGs are missing
   const missing = triads.filter(t => {
@@ -50,22 +75,22 @@ async function main() {
   await page.goto(templateUrl, { waitUntil: 'networkidle' });
 
   // Pass key signatures data to the page
-  const keySigs = JSON.parse(fs.readFileSync(KEY_SIGS_PATH, 'utf8'));
   await page.evaluate((ks) => {
     window.__keySignatures = ks.keySignatures;
     window.__enharmonicNormalization = ks.enharmonicNormalization || {};
-  }, keySigs);
+  }, keySigsData);
 
   for (let i = 0; i < missing.length; i++) {
     const triad = missing[i];
     const outPath = path.join(STATIC_DIR, filenameForTriad(triad));
 
     try {
-      // Reset and render
+      // Reset and render (pass normalized triad for display)
+      const normTriad = normalizeTriad(triad);
       await page.evaluate((t) => {
         window.__diagramReady = false;
         window.renderDiagram(t);
-      }, triad);
+      }, normTriad);
 
       // Wait for SVG→canvas compositing
       await page.waitForFunction(() => window.__diagramReady === true, { timeout: 5000 });

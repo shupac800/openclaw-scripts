@@ -105,5 +105,14 @@
       "major": "Cb",
       "minor": "Ab"
     }
-  ]
+  ],
+  "enharmonicNormalization": {
+    "C# major": "Db major",
+    "Cb major": "B major",
+    "A# minor": "Bb minor",
+    "D# minor": "Eb minor",
+    "G# major": "Ab major",
+    "Db minor": "C# minor",
+    "Gb minor": "F# minor"
+  }
 }
