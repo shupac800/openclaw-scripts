@@ -53,9 +53,14 @@ const GAP = 24;
 // ---- enharmonic helpers ----
 const SHARP_TO_FLAT = { 'C#':'Db', 'D#':'Eb', 'F#':'Gb', 'G#':'Ab', 'A#':'Bb' };
 
+const FLAT_TO_SHARP = { Db:'C#', Eb:'D#', Gb:'F#', Ab:'G#', Bb:'A#' };
+
 function respellForKey(noteName, keySigInfo) {
   if (keySigInfo.type === 'flat' && noteName in SHARP_TO_FLAT) {
     return SHARP_TO_FLAT[noteName];
+  }
+  if (keySigInfo.type === 'sharp' && noteName in FLAT_TO_SHARP) {
+    return FLAT_TO_SHARP[noteName];
   }
   return noteName;
 }
@@ -151,6 +156,11 @@ function renderDiagram(triad) {
   const quality = extractQuality(triad.name);
   const keySigInfo = getKeySigInfo(triad.root, quality);
   const chordColor = (quality === 'Major' || quality === 'Augmented') ? '#00e5ff' : '#ff69b4';
+
+  // Respell toneMap originals for the key signature (e.g. Eb → D# in sharp keys)
+  for (const key of Object.keys(toneMap)) {
+    toneMap[key].original = respellForKey(toneMap[key].original, keySigInfo);
+  }
 
   // Collect played notes
   const notes = [];

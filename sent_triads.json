@@ -34,7 +34,8 @@
     "A Diminished (root fret 5, E string)",
     "Bb Major (root fret 1, A string)",
     "E Augmented (root fret 9, G string)",
-    "Ab Diminished (root fret 9, B string)"
+    "Ab Diminished (root fret 9, B string)",
+    "Bb Augmented (root fret 8, D string)"
   ],
   "available_triads": [
     {
