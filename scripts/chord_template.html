@@ -127,6 +127,18 @@ function extractQuality(name) {
 
 function getKeySigInfo(root, quality) {
   const sigs = window.__keySignatures || [];
+  const enharmonic = window.__enharmonicNormalization || {};
+
+  // Normalize via enharmonicNormalization (e.g. "C# major" → "Db major")
+  const qualityWord = quality === 'Augmented' ? 'major'
+    : quality === 'Diminished' ? 'minor'
+    : quality.toLowerCase();
+  const lookupKey = `${root} ${qualityWord}`;
+  if (enharmonic[lookupKey]) {
+    const parts = enharmonic[lookupKey].split(' ');
+    root = parts[0];
+  }
+
   let entry;
   if (quality === 'Major' || quality === 'Augmented') {
     entry = sigs.find(e => e.major === root);

@@ -51,7 +51,10 @@ async function main() {
 
   // Pass key signatures data to the page
   const keySigs = JSON.parse(fs.readFileSync(KEY_SIGS_PATH, 'utf8'));
-  await page.evaluate((ks) => { window.__keySignatures = ks.keySignatures; }, keySigs);
+  await page.evaluate((ks) => {
+    window.__keySignatures = ks.keySignatures;
+    window.__enharmonicNormalization = ks.enharmonicNormalization || {};
+  }, keySigs);
 
   for (let i = 0; i < missing.length; i++) {
     const triad = missing[i];
