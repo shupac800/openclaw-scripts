@@ -125,29 +125,19 @@ function extractQuality(name) {
   return parts.length >= 2 ? parts[1] : 'Major';
 }
 
-const KEY_SHARPS = { C:0, G:1, D:2, A:3, E:4, B:5, 'F#':6, 'C#':7 };
-const KEY_FLATS = { F:1, Bb:2, Eb:3, Ab:4, Db:5, Gb:6, Cb:7 };
-const SHARP_ORDER_NOTES = ['F#','C#','G#','D#','A#','E#','B#'];
-const FLAT_ORDER_NOTES = ['Bb','Eb','Ab','Db','Gb','Cb','Fb'];
-
 function getKeySigInfo(root, quality) {
-  let key;
+  const sigs = window.__keySignatures || [];
+  let entry;
   if (quality === 'Major' || quality === 'Augmented') {
-    key = root;
+    entry = sigs.find(e => e.major === root);
   } else {
-    const rootNorm = FLAT_MAP[root] || root;
-    const idx = NOTE_NAMES.indexOf(rootNorm);
-    const relIdx = (idx + 3) % 12;
-    key = NOTE_NAMES[relIdx];
-    const enh = { 'A#':'Bb', 'D#':'Eb', 'G#':'Ab' };
-    key = enh[key] || key;
+    // Minor or Diminished: look up by minor key → gives relative major
+    entry = sigs.find(e => e.minor === root);
   }
-  if (key in KEY_SHARPS) {
-    return { vexKey: key, accNotes: SHARP_ORDER_NOTES.slice(0, KEY_SHARPS[key]), type: 'sharp' };
-  } else if (key in KEY_FLATS) {
-    return { vexKey: key, accNotes: FLAT_ORDER_NOTES.slice(0, KEY_FLATS[key]), type: 'flat' };
+  if (!entry || entry.accidentals === 0) {
+    return { vexKey: 'C', accNotes: [], type: 'none' };
   }
-  return { vexKey: 'C', accNotes: [], type: 'none' };
+  return { vexKey: entry.major, accNotes: entry.signature, type: entry.type };
 }
 
 // ---- main render ----

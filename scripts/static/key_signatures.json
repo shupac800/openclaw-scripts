@@ -1,0 +1,109 @@
+{
+  "keySignatures": [
+    {
+      "accidentals": 0,
+      "type": "none",
+      "signature": [],
+      "major": "C",
+      "minor": "A"
+    },
+    {
+      "accidentals": 1,
+      "type": "sharp",
+      "signature": ["F#"],
+      "major": "G",
+      "minor": "E"
+    },
+    {
+      "accidentals": 2,
+      "type": "sharp",
+      "signature": ["F#", "C#"],
+      "major": "D",
+      "minor": "B"
+    },
+    {
+      "accidentals": 3,
+      "type": "sharp",
+      "signature": ["F#", "C#", "G#"],
+      "major": "A",
+      "minor": "F#"
+    },
+    {
+      "accidentals": 4,
+      "type": "sharp",
+      "signature": ["F#", "C#", "G#", "D#"],
+      "major": "E",
+      "minor": "C#"
+    },
+    {
+      "accidentals": 5,
+      "type": "sharp",
+      "signature": ["F#", "C#", "G#", "D#", "A#"],
+      "major": "B",
+      "minor": "G#"
+    },
+    {
+      "accidentals": 6,
+      "type": "sharp",
+      "signature": ["F#", "C#", "G#", "D#", "A#", "E#"],
+      "major": "F#",
+      "minor": "D#"
+    },
+    {
+      "accidentals": 7,
+      "type": "sharp",
+      "signature": ["F#", "C#", "G#", "D#", "A#", "E#", "B#"],
+      "major": "C#",
+      "minor": "A#"
+    },
+    {
+      "accidentals": 1,
+      "type": "flat",
+      "signature": ["Bb"],
+      "major": "F",
+      "minor": "D"
+    },
+    {
+      "accidentals": 2,
+      "type": "flat",
+      "signature": ["Bb", "Eb"],
+      "major": "Bb",
+      "minor": "G"
+    },
+    {
+      "accidentals": 3,
+      "type": "flat",
+      "signature": ["Bb", "Eb", "Ab"],
+      "major": "Eb",
+      "minor": "C"
+    },
+    {
+      "accidentals": 4,
+      "type": "flat",
+      "signature": ["Bb", "Eb", "Ab", "Db"],
+      "major": "Ab",
+      "minor": "F"
+    },
+    {
+      "accidentals": 5,
+      "type": "flat",
+      "signature": ["Bb", "Eb", "Ab", "Db", "Gb"],
+      "major": "Db",
+      "minor": "Bb"
+    },
+    {
+      "accidentals": 6,
+      "type": "flat",
+      "signature": ["Bb", "Eb", "Ab", "Db", "Gb", "Cb"],
+      "major": "Gb",
+      "minor": "Eb"
+    },
+    {
+      "accidentals": 7,
+      "type": "flat",
+      "signature": ["Bb", "Eb", "Ab", "Db", "Gb", "Cb", "Fb"],
+      "major": "Cb",
+      "minor": "Ab"
+    }
+  ]
+}

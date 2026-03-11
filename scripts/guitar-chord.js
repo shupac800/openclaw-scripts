@@ -13,6 +13,7 @@ const { chromium } = require('playwright');
 const TRIADS_PATH = path.join(__dirname, '..', 'sent_triads.json');
 const STATIC_DIR = path.join(__dirname, 'static');
 const TEMPLATE_PATH = path.join(__dirname, 'chord_template.html');
+const KEY_SIGS_PATH = path.join(STATIC_DIR, 'key_signatures.json');
 
 function filenameForTriad(triad) {
   const m = triad.name.match(/^(.+?) \(root fret (\d+), (\w) string\)$/);
@@ -47,6 +48,10 @@ async function main() {
   // Load template
   const templateUrl = 'file:///' + TEMPLATE_PATH.replace(/\\/g, '/');
   await page.goto(templateUrl, { waitUntil: 'networkidle' });
+
+  // Pass key signatures data to the page
+  const keySigs = JSON.parse(fs.readFileSync(KEY_SIGS_PATH, 'utf8'));
+  await page.evaluate((ks) => { window.__keySignatures = ks.keySignatures; }, keySigs);
 
   for (let i = 0; i < missing.length; i++) {
     const triad = missing[i];
