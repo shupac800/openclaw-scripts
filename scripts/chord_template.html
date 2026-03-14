@@ -42,7 +42,7 @@ const INTERVAL_COLORS = {
 };
 
 const IMG_H = 182;
-const CUE_H = 112; // extra height for recall cues below the diagram
+const CUE_H = 125; // extra height for recall cues below the diagram
 const TAB_STRING_SPACING = 17;
 const TAB_LINE_LEFT = 30;
 const TAB_LINE_WIDTH = 120;
@@ -518,9 +518,9 @@ function drawCues(ctx, triad, imgW, startY) {
   ctx.stroke();
 
   // Cue lines
-  ctx.font = '12px "Segoe UI", sans-serif';
+  ctx.font = '14px "Segoe UI", sans-serif';
   ctx.textBaseline = 'alphabetic';
-  const LINE_H = 19;
+  const LINE_H = 21;
   for (let i = 0; i < cues.length; i++) {
     ctx.fillStyle = '#999';
     ctx.fillText(`${i + 1}. ${cues[i]}`, MARGIN, startY + 22 + i * LINE_H);
