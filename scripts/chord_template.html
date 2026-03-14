@@ -42,6 +42,7 @@ const INTERVAL_COLORS = {
 };
 
 const IMG_H = 182;
+const CUE_H = 112; // extra height for recall cues below the diagram
 const TAB_STRING_SPACING = 17;
 const TAB_LINE_LEFT = 30;
 const TAB_LINE_WIDTH = 120;
@@ -301,7 +302,7 @@ function renderDiagram(triad) {
 
   const canvas = document.getElementById('output');
   canvas.width = imgW;
-  canvas.height = IMG_H;
+  canvas.height = IMG_H + CUE_H;
   const ctx = canvas.getContext('2d');
 
   ctx.fillStyle = COLOR_BG;
@@ -380,10 +381,12 @@ function renderDiagram(triad) {
       ctx.drawImage(img, staffX, 0);
       URL.revokeObjectURL(url);
       drawStaffLegend(ctx, notes, staffX + vexW + 8);
+      drawCues(ctx, triad, imgW, IMG_H);
       window.__diagramReady = true;
     };
     img.src = url;
   } else {
+    drawCues(ctx, triad, imgW, IMG_H);
     window.__diagramReady = true;
   }
 }
@@ -410,6 +413,117 @@ function drawStaffLegend(ctx, notes, labelX) {
     const color = INTERVAL_COLORS[n.entry.interval] || COLOR_FG;
     ctx.fillStyle = color;
     ctx.fillText(`${n.entry.interval}  ${n.entry.original}`, labelX, labelYs[i]);
+  }
+}
+
+// ── recall cues ───────────────────────────────────────────────────────────────
+
+function computeCues(root, quality) {
+  const SHARP_NOTES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const FLAT_NOTES  = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+  const NOTE_SEMI   = {
+    'C':0,'C#':1,'Db':1,'D':2,'D#':3,'Eb':3,'E':4,'Fb':4,'E#':5,'F':5,
+    'F#':6,'Gb':6,'G':7,'G#':8,'Ab':8,'A':9,'A#':10,'Bb':10,'B':11,'Cb':11,'B#':0
+  };
+
+  function noteAt(r, semis, flats) {
+    const s = ((NOTE_SEMI[r] + semis) % 12 + 12) % 12;
+    return flats ? FLAT_NOTES[s] : SHARP_NOTES[s];
+  }
+  function fmt(n) { return n.replace('b','♭').replace('#','♯'); }
+  function accStr(n, type) {
+    if (n === 0) return 'no sharps or flats';
+    return type === 'flat' ? `${n} flat${n === 1 ? '' : 's'}` : `${n} sharp${n === 1 ? '' : 's'}`;
+  }
+
+  const isMajorFam = quality === 'Major' || quality === 'Augmented';
+  const keySigs = window.__keySignatures || [];
+
+  // Find key signature entry
+  const entry = isMajorFam
+    ? keySigs.find(e => e.major === root)
+    : keySigs.find(e => e.minor === root);
+  if (!entry) return [`(no key data for ${root} ${quality})`];
+
+  const acc     = entry.accidentals;
+  const type    = entry.type;
+  const useFlats = type === 'flat';
+  const keyWord  = isMajorFam ? 'major' : 'minor';
+
+  // 1. Key signature
+  const cue1 = `${fmt(root)} ${keyWord}: ${accStr(acc, type)}`;
+
+  // 2. Rule of 7 — same-letter major keys' accidentals always sum to 7
+  //    For minor keys, apply the rule via the relative major
+  let cue2;
+  const r7root = isMajorFam ? root : entry.major;
+  const enharmonic = window.__enharmonicNormalization || {};
+  let r7name, r7acc;
+  if (acc === 0) {
+    r7name = noteAt(r7root, 1, false);
+    r7acc = '7 sharps';
+  } else if (type === 'flat') {
+    r7name = noteAt(r7root, 1, false);
+    const p = 7 - acc;
+    r7acc = p === 0 ? 'no sharps or flats' : p + ` sharp${p === 1 ? '' : 's'}`;
+  } else {
+    r7name = noteAt(r7root, -1, true);
+    const p = 7 - acc;
+    r7acc = p === 0 ? 'no sharps or flats' : p + ` flat${p === 1 ? '' : 's'}`;
+  }
+  const r7key = `${r7name} major`;
+  const r7enharmonic = enharmonic[r7key];
+  if (r7enharmonic) {
+    const normRoot = r7enharmonic.replace(/ major$/, '');
+    const normEntry = keySigs.find(e => e.major === normRoot);
+    const normAcc = normEntry ? accStr(normEntry.accidentals, normEntry.type) : '';
+    cue2 = `rule of 7: ${fmt(r7name)} major (${r7acc}), usually written as ${fmt(normRoot)} major (${normAcc})`;
+  } else {
+    cue2 = `rule of 7: ${fmt(r7name)} major: ${r7acc}`;
+  }
+
+  // 3. Relative key (major↔minor, same key signature)
+  let cue3;
+  if (isMajorFam) {
+    cue3 = `relative minor: ${fmt(entry.minor)} minor (${accStr(acc, type)})`;
+  } else {
+    cue3 = `relative major: ${fmt(entry.major)} major (${accStr(acc, type)})`;
+  }
+
+  // 4. Third
+  const thirdNote = noteAt(root, isMajorFam ? 4 : 3, useFlats);
+  cue4 = `${isMajorFam ? 'major' : 'minor'} 3rd of ${fmt(root)}: ${fmt(thirdNote)}`;
+
+  // 5. Fifth (varies by quality)
+  const fifthSemis = quality === 'Augmented' ? 8 : quality === 'Diminished' ? 6 : 7;
+  const fifthLabel = quality === 'Augmented' ? 'aug 5th' : quality === 'Diminished' ? 'dim 5th' : 'perf 5th';
+  const fifthNote  = noteAt(root, fifthSemis, useFlats);
+  cue5 = `${fifthLabel} of ${fmt(root)}: ${fmt(fifthNote)}`;
+
+  return [cue1, cue2, cue3, cue4, cue5];
+}
+
+function drawCues(ctx, triad, imgW, startY) {
+  const m = triad.name.match(/^(.+?)\s+(Major|Minor|Diminished|Augmented)\s+/);
+  if (!m) return;
+  const [, root, quality] = m;
+  const cues = computeCues(root, quality);
+
+  // Separator
+  ctx.strokeStyle = '#333';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(MARGIN, startY + 7);
+  ctx.lineTo(imgW - MARGIN, startY + 7);
+  ctx.stroke();
+
+  // Cue lines
+  ctx.font = '12px "Segoe UI", sans-serif';
+  ctx.textBaseline = 'alphabetic';
+  const LINE_H = 19;
+  for (let i = 0; i < cues.length; i++) {
+    ctx.fillStyle = '#999';
+    ctx.fillText(`${i + 1}. ${cues[i]}`, MARGIN, startY + 22 + i * LINE_H);
   }
 }
 
