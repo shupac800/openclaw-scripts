@@ -453,9 +453,17 @@ function computeCues(root, quality) {
   // 1. Key signature
   const cue1 = `${fmt(root)} ${keyWord}: ${accStr(acc, type)}`;
 
-  // 2. Rule of 7 — same-letter major keys' accidentals always sum to 7
-  //    For minor keys, apply the rule via the relative major
+  // 2. Relative key (major↔minor, same key signature)
   let cue2;
+  if (isMajorFam) {
+    cue2 = `relative minor: ${fmt(entry.minor)} minor (${accStr(acc, type)})`;
+  } else {
+    cue2 = `relative major: ${fmt(entry.major)} major (${accStr(acc, type)})`;
+  }
+
+  // 3. Rule of 7 — same-letter major keys' accidentals always sum to 7
+  //    For minor keys, apply the rule via the relative major
+  let cue3;
   const r7root = isMajorFam ? root : entry.major;
   const enharmonic = window.__enharmonicNormalization || {};
   let r7name, r7acc;
@@ -477,17 +485,9 @@ function computeCues(root, quality) {
     const normRoot = r7enharmonic.replace(/ major$/, '');
     const normEntry = keySigs.find(e => e.major === normRoot);
     const normAcc = normEntry ? accStr(normEntry.accidentals, normEntry.type) : '';
-    cue2 = `rule of 7: ${fmt(r7name)} major (${r7acc}), usually written as ${fmt(normRoot)} major (${normAcc})`;
+    cue3 = `rule of 7: ${fmt(r7name)} major (${r7acc}), usually written as ${fmt(normRoot)} major (${normAcc})`;
   } else {
-    cue2 = `rule of 7: ${fmt(r7name)} major: ${r7acc}`;
-  }
-
-  // 3. Relative key (major↔minor, same key signature)
-  let cue3;
-  if (isMajorFam) {
-    cue3 = `relative minor: ${fmt(entry.minor)} minor (${accStr(acc, type)})`;
-  } else {
-    cue3 = `relative major: ${fmt(entry.major)} major (${accStr(acc, type)})`;
+    cue3 = `rule of 7: ${fmt(r7name)} major: ${r7acc}`;
   }
 
   // 4. Third
@@ -496,7 +496,7 @@ function computeCues(root, quality) {
 
   // 5. Fifth (varies by quality)
   const fifthSemis = quality === 'Augmented' ? 8 : quality === 'Diminished' ? 6 : 7;
-  const fifthLabel = quality === 'Augmented' ? 'aug 5th' : quality === 'Diminished' ? 'dim 5th' : 'perf 5th';
+  const fifthLabel = quality === 'Augmented' ? 'aug 5th' : quality === 'Diminished' ? 'dim 5th' : 'perfect 5th';
   const fifthNote  = noteAt(root, fifthSemis, useFlats);
   cue5 = `${fifthLabel} of ${fmt(root)}: ${fmt(fifthNote)}`;
 
