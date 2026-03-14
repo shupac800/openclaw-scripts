@@ -438,11 +438,20 @@ function computeCues(root, quality) {
 
   const isMajorFam = quality === 'Major' || quality === 'Augmented';
   const keySigs = window.__keySignatures || [];
+  const enharmonic = window.__enharmonicNormalization || {};
 
-  // Find key signature entry
+  // Normalize root via enharmonicNormalization (e.g. "Ab minor" → "G# minor")
+  const qualityWord = isMajorFam ? 'major' : 'minor';
+  const normKey = `${root} ${qualityWord}`;
+  let displayRoot = root;
+  if (enharmonic[normKey]) {
+    displayRoot = enharmonic[normKey].split(' ')[0];
+  }
+
+  // Find key signature entry using normalized root
   const entry = isMajorFam
-    ? keySigs.find(e => e.major === root)
-    : keySigs.find(e => e.minor === root);
+    ? keySigs.find(e => e.major === displayRoot)
+    : keySigs.find(e => e.minor === displayRoot);
   if (!entry) return [`(no key data for ${root} ${quality})`];
 
   const acc     = entry.accidentals;
@@ -451,7 +460,7 @@ function computeCues(root, quality) {
   const keyWord  = isMajorFam ? 'major' : 'minor';
 
   // 1. Key signature
-  const cue1 = `${fmt(root)} ${keyWord}: ${accStr(acc, type)}`;
+  const cue1 = `${fmt(displayRoot)} ${keyWord}: ${accStr(acc, type)}`;
 
   // 2. Relative key (major↔minor, same key signature)
   let cue2;
@@ -464,8 +473,7 @@ function computeCues(root, quality) {
   // 3. Rule of 7 — same-letter major keys' accidentals always sum to 7
   //    For minor keys, apply the rule via the relative major
   let cue3;
-  const r7root = isMajorFam ? root : entry.major;
-  const enharmonic = window.__enharmonicNormalization || {};
+  const r7root = isMajorFam ? displayRoot : entry.major;
   let r7name, r7acc;
   if (acc === 0) {
     r7name = noteAt(r7root, 1, false);
@@ -491,14 +499,14 @@ function computeCues(root, quality) {
   }
 
   // 4. Third
-  const thirdNote = noteAt(root, isMajorFam ? 4 : 3, useFlats);
-  cue4 = `${isMajorFam ? 'major' : 'minor'} 3rd of ${fmt(root)}: ${fmt(thirdNote)}`;
+  const thirdNote = noteAt(displayRoot, isMajorFam ? 4 : 3, useFlats);
+  cue4 = `${isMajorFam ? 'major' : 'minor'} 3rd of ${fmt(displayRoot)}: ${fmt(thirdNote)}`;
 
   // 5. Fifth (varies by quality)
   const fifthSemis = quality === 'Augmented' ? 8 : quality === 'Diminished' ? 6 : 7;
   const fifthLabel = quality === 'Augmented' ? 'aug 5th' : quality === 'Diminished' ? 'dim 5th' : 'perfect 5th';
-  const fifthNote  = noteAt(root, fifthSemis, useFlats);
-  cue5 = `${fifthLabel} of ${fmt(root)}: ${fmt(fifthNote)}`;
+  const fifthNote  = noteAt(displayRoot, fifthSemis, useFlats);
+  cue5 = `${fifthLabel} of ${fmt(displayRoot)}: ${fmt(fifthNote)}`;
 
   return [cue1, cue2, cue3, cue4, cue5];
 }
@@ -522,7 +530,7 @@ function drawCues(ctx, triad, imgW, startY) {
   ctx.textBaseline = 'alphabetic';
   const LINE_H = 21;
   for (let i = 0; i < cues.length; i++) {
-    ctx.fillStyle = '#999';
+    ctx.fillStyle = '#ffffff';
     ctx.fillText(`${i + 1}. ${cues[i]}`, MARGIN, startY + 22 + i * LINE_H);
   }
 }
